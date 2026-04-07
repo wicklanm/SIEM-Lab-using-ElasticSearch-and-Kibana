@@ -136,35 +136,36 @@ _Configured Firewall to IP range using TCP and a range_
 
 _We can now use Elastic with Kibana_
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (3)" src="https://github.com/user-attachments/assets/44824b34-cecd-4ca9-a033-a1691d62fc4f" />
-<img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (4)" src="https://github.com/user-attachments/assets/65d3befe-936f-4155-b502-02ea35b2b7f9" />
 
-<img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (5)" src="https://github.com/user-attachments/assets/abd90146-d795-42b6-b762-0c0fec642071" />
+**Installing Windows Server**
+- For our entire network and Soc environment, we will want to setup a Windows Server, as most offices still use them as their main server for many systems and software to this day.
+- See below as my example for setting this up.
+<img width="888" height="418" alt="Screenshot 2026-04-07 150208" src="https://github.com/user-attachments/assets/29b2cc0c-fb62-4ad7-875d-fb58498350a5" />
+<img width="942" height="476" alt="Screenshot 2026-04-07 150301" src="https://github.com/user-attachments/assets/d4aa0a49-ba19-4909-8fbc-5959c7957692" />
+- Make sure it finishes installing, then login with the credentials set in VULTR
+<img width="1063" height="480" alt="Screenshot 2026-04-07 150550" src="https://github.com/user-attachments/assets/ea630603-8331-402d-81f1-3029c71132f4" />
 
 **Installing Fleet Server with Elastic Agent**
 
-Elastic Agent  is a single, unified, and lightweight software agent used to collect logs, metrics, traces, and security data from hosts (servers, containers, workstations) and send it to ElasticSearch. It replaces multiple specialized "Beats" (e.g., Filebeat, Metricbeat) with one tool, simplifying deployment, management, and security via a central console called Fleet.
+Elastic Agent is a single, unified, and lightweight software agent used to collect logs, metrics, traces, and security data from hosts (servers, containers, workstations) and send it to ElasticSearch. It replaces multiple specialized "Beats" (e.g., Filebeat, Metricbeat) with one tool, simplifying deployment, management, and security via a central console called Fleet.
 
 The types of beats done in a system are:
-File Beat - Logs
-Metric Beat - Metrics
-Packet Beat - Network Data
-Winlog Beat - Windows Events
-Audit Beat - Windows Events
-Audit Beat - Audit Data
-Heartbeat Beat - Uptime
-
-<img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (6)" src="https://github.com/user-attachments/assets/404d9419-119a-40d5-a610-0137c2521ad3" />
+- File Beat - Logs
+- Metric Beat - Metrics
+- Packet Beat - Network Data
+- Winlog Beat - Windows Events
+- Audit Beat - Windows Events
+- Audit Beat - Audit Data
+- Heartbeat Beat - Uptime
 
 _Fleet Servers_
   
-  A Fleet Server is a component of the elastic Stack that acts as a centralized control plane for managing Elastic Agents. It enables administrators to remotely manage, configure, and update thousands of agents—which collect logs and metrics—from a   single Kibana Interface.
+A Fleet Server is a component of the elastic Stack that acts as a centralized control plane for managing Elastic Agents. It enables administrators to remotely manage, configure, and update thousands of agents—which collect logs and metrics—from a   single Kibana Interface.
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (7)" src="https://github.com/user-attachments/assets/b0b2452b-28b9-402c-8e8c-17973fce205e" />
 
 _Install Fleet Servers on VULTR_
-  
-  -Install a new server with Ubunto, using our SOC network. You can use a machine with minimal cores and storage. Once installing, open up powershell and connect to the server via ‘SSH root@yournewipaddress’
-
+- Install a new server with Ubunto, using our SOC network. You can use a machine with minimal cores and storage. Once installing, open up powershell and connect to the server via ‘SSH root@yournewipaddress’
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (8)" src="https://github.com/user-attachments/assets/528c28ff-95c5-47fc-9011-ac58d3297128" />
 
 _Add Elastic on Fleet Servers_
@@ -172,28 +173,25 @@ _Add Elastic on Fleet Servers_
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (9)" src="https://github.com/user-attachments/assets/d4b74a38-570b-4681-9a19-b24c9e5309e1" />
 
 _Add install code from elastic to install on Fleet Server_
-  
-  -Use the code for Linux 86_64 and paste into Powershell, directed to Fleet Server via SSH
-
+- Use the code for Linux 86_64 and paste into Powershell, directed to Fleet Server via SSH
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (10)" src="https://github.com/user-attachments/assets/91baf875-f82f-46dc-ae5e-6234cb80c52b" />
 
-We may need to run command ‘ufw allow 9200’, as well as  ‘ufw allow 8200’ and ‘ufw allow 443.
-We may also need to allow these ports via TCP on our Firewall in VULTR
-
+- We may need to run command ‘ufw allow 9200’, as well as  ‘ufw allow 8200’ and ‘ufw allow 443.
+- We may also need to allow these ports via TCP on our Firewall in VULTR
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (11)" src="https://github.com/user-attachments/assets/0fd6458b-1f66-42d8-8c99-3107d06115e9" />
 
-We will want to add Elastic onto our newer Windows Server we made earlier.
-One adding agent, we copy the script for the Windows x86_64 option
+- We will want to add Elastic onto our newer Windows Server we made earlier.
+- One adding agent, we copy the script for the Windows x86_64 option
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (12)" src="https://github.com/user-attachments/assets/e71c0bd8-fd98-4060-9948-c439e0fca123" />
 
-We then log into our Windows server, run PowerShell as Administrator, and run the code provide by elastic server.
-It will tell us when enrollment and data are confirmed.
+- We then log into our Windows server, run PowerShell as Administrator, and run the code provide by elastic server.
+- It will tell us when enrollment and data are confirmed.
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (13)" src="https://github.com/user-attachments/assets/a328d6b4-3d16-40d7-9428-46dd00675500" />
 
-On our Elastic Site, We can go to Analytics > Discover, and view our logs and data on our network we made so far.
-We can search for a server name, like the one for our Windows Server, then view associated logs and view information on the right.
+- On our Elastic Site, We can go to Analytics > Discover, and view our logs and data on our network we made so far.
+- We can search for a server name, like the one for our Windows Server, then view associated logs and view information on the right.
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (14)" src="https://github.com/user-attachments/assets/d2d65ae8-7b7b-494a-b0ad-fb936012e4f6" />
