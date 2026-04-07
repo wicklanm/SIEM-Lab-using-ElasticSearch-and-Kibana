@@ -101,3 +101,41 @@ I have conducted a hands-on lab that goes over installing servers, including the
     -Next, we want to go get the download from ElasticSearch, copy the url from the download, and paste into Powershell using wget command to start the download on the actual hosted machine. (doing this for deb x86_64)
     <img width="729" height="457" alt="Screenshot 2026-04-07 105037" src="https://github.com/user-attachments/assets/11e0068b-3d26-4039-9e09-35f5317ac260" />
     <img width="773" height="87" alt="Screenshot 2026-04-07 105120" src="https://github.com/user-attachments/assets/351790a6-3263-442a-95d3-ebf67940be6e" />
+
+  -Installing and Starting Elastic Search Service
+    -Once downloaded, we then run the installer, and then start the services. See image for script ran on Powershell (using ssh root@ipaddressofserver)
+    <img width="819" height="531" alt="Screenshot 2026-04-07 105505" src="https://github.com/user-attachments/assets/2b5ec018-6c03-4453-8ab2-79fcd0b97f9b" />
+      *** An update may be needed for the Ubuntu Server ***
+      
+      <img width="559" height="558" alt="Screenshot 2026-04-07 105505" src="https://github.com/user-attachments/assets/7a416e64-8113-4eb2-a86b-6f497fe9e82c" />
+
+  -Configuring IP address and Port for ElasticSearch
+    -We run nano command to change these settings in Elastic search so it points to our hosted server
+    
+    <img width="739" height="472" alt="Screenshot 2026-04-07 105912" src="https://github.com/user-attachments/assets/ade8ee3a-372a-4103-a28b-c938580646bd" />
+    <img width="645" height="523" alt="Screenshot 2026-04-07 105956" src="https://github.com/user-attachments/assets/262d9aa2-9041-4bc3-8f85-0a52b7a3654c" />
+
+  -Add a Firewall Group in VULTR
+    -We then have to add a Firewall Group for our server to allow access for ElasticSearch
+    <img width="895" height="287" alt="Screenshot 2026-04-07 110103" src="https://github.com/user-attachments/assets/17dc0726-1949-4768-b4e7-e6c06dda2c7c" />
+
+  -Installing Kibana and setting up with Elasticsearch
+    -We will be installing Kibana via Powershell and SSH onto our hosted virtual machine from VULTR.
+    -Kibana is an open-source data visualization and exploration tool designed for the Elastic Stack (ELK Stack). 
+    -It acts as the user interface to search, analyze, and visualize data stored in Elasticsearch, allowing      users to create interactive dashboards, charts, and maps to analyze log and time-series data.
+    <img width="944" height="445" alt="Screenshot 2026-04-07 110243" src="https://github.com/user-attachments/assets/fa18a606-0141-45ae-8dd8-cb47b7b36615" />
+
+    -We want to Dowload Kibana from the site using DEB x86_64, and then running on our powershell connected to the Linux server
+    <img width="464" height="407" alt="Screenshot 2026-04-07 110442" src="https://github.com/user-attachments/assets/52d511d4-cb40-43e5-8c39-edc1e8d2dc79" />
+
+    <img width="414" height="542" alt="Screenshot 2026-04-07 110503" src="https://github.com/user-attachments/assets/24c83748-2577-4fea-86b5-95c2afab40db" />
+
+    -We then install Kibana such as shown in image
+    <img width="842" height="343" alt="Screenshot 2026-04-07 110653" src="https://github.com/user-attachments/assets/cd48e2da-6040-4fa3-aeb2-83df39cce009" />
+
+    -Back in Nano, we have to change the IP address and Port for Kibana
+    <img width="809" height="354" alt="Screenshot 2026-04-07 110800" src="https://github.com/user-attachments/assets/79d7b625-519e-42da-9852-a308f9cbfaf6" />
+
+    -And select exit prompt for Nano, and save changes
+
+    
