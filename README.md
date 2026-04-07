@@ -61,7 +61,7 @@ I have conducted a hands-on lab that goes over installing servers, including the
 
 # Steps Taken
 
-**Building Ubuntu Server from VULTR (Virtual Network)**
+## Building Ubuntu Server from VULTR (Virtual Network)
 
 _Vultr: VPS Server and Network; I will start by installing an Ubuntu Server from VULTR and applying Elastic Search onto it._
 - Vultr is a Global, automated cloud infrastructure from the broadest array of AMD and NVIDIA GPUs to virtual CPUs, bare metal, Kubernetes, storage, and networking.
@@ -70,7 +70,7 @@ _Vultr: VPS Server and Network; I will start by installing an Ubuntu Server from
 <img width="920" height="271" alt="Screenshot 2026-04-07 104456" src="https://github.com/user-attachments/assets/8fcde44c-a7a3-4550-8c38-2cef1775c4b6" />
 
 
-**Install Elastic Search**
+## Install Elastic Search**
 
 _Installing Elasticsearch on Ubuntu Server_
 - We will be installing ElasticSearch via Powershell and SSH onto our hosted virtual machine from VULTR.
@@ -106,7 +106,7 @@ _Add a Firewall Group in VULTR_
 - We then have to add a Firewall Group for our server to allow access for ElasticSearch
 <img width="895" height="287" alt="Screenshot 2026-04-07 110103" src="https://github.com/user-attachments/assets/17dc0726-1949-4768-b4e7-e6c06dda2c7c" />
 
-**_Installing Kibana and setting up with Elasticsearch_**
+## Installing Kibana and setting up with Elasticsearch
 - We will be installing Kibana via Powershell and SSH onto our hosted virtual machine from VULTR.
 - Kibana is an open-source data visualization and exploration tool designed for the Elastic Stack (ELK Stack). 
 - It acts as the user interface to search, analyze, and visualize data stored in Elasticsearch, allowing users to create interactive dashboards, charts, and maps to analyze log and time-series data.
@@ -137,7 +137,7 @@ _Configured Firewall to IP range using TCP and a range_
 _We can now use Elastic with Kibana_
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (3)" src="https://github.com/user-attachments/assets/44824b34-cecd-4ca9-a033-a1691d62fc4f" />
 
-**Installing Windows Server**
+## Installing Windows Server
 - For our entire network and Soc environment, we will want to setup a Windows Server, as most offices still use them as their main server for many systems and software to this day.
 - See below as my example for setting this up.
 <img width="888" height="418" alt="Screenshot 2026-04-07 150208" src="https://github.com/user-attachments/assets/29b2cc0c-fb62-4ad7-875d-fb58498350a5" />
@@ -145,7 +145,7 @@ _We can now use Elastic with Kibana_
 - Make sure it finishes installing, then login with the credentials set in VULTR
 <img width="1063" height="480" alt="Screenshot 2026-04-07 150550" src="https://github.com/user-attachments/assets/ea630603-8331-402d-81f1-3029c71132f4" />
 
-**Installing Fleet Server with Elastic Agent**
+## Installing Fleet Server with Elastic Agent**
 
 Elastic Agent is a single, unified, and lightweight software agent used to collect logs, metrics, traces, and security data from hosts (servers, containers, workstations) and send it to ElasticSearch. It replaces multiple specialized "Beats" (e.g., Filebeat, Metricbeat) with one tool, simplifying deployment, management, and security via a central console called Fleet.
 
@@ -195,3 +195,31 @@ _Add install code from elastic to install on Fleet Server_
 - We can search for a server name, like the one for our Windows Server, then view associated logs and view information on the right.
 
 <img width="960" height="540" alt="Setting up Elastic SIEM on Network using VULTR (14)" src="https://github.com/user-attachments/assets/d2d65ae8-7b7b-494a-b0ad-fb936012e4f6" />
+
+## Sysmon Setup
+Sysmon (System Monitor) is a Windows system service and device driver from Microsoft Sysinternals that provides advanced, real-time monitoring of system activity, including process creation, network creations, and file changes. It is designed for deep security visibility, helping detection teams identify malicious behavior and “living-off-the-land” attacks that standard Windows logs often miss.
+
+_Key Features & Benefits_
+- Detailed Process Tracking: Logs full command-line arguments for processes, including parent processes.
+- File Hash Integrity: Records SHA1, MD5, or SHA256 hashes of process images to detect modified malware.
+- Network Connections: Tracks TCP/UDP connections, including the source process, IP addresses, and ports.
+- Advanced Detection: Detects file creation time changes (timestomping), driver loading, and raw disk access.
+- Rule Filtering: Allows including or excluding specific events to reduce noise and optimize storage.
+
+_Download Sysmon on Windows Server_
+- You should be able to RDP into it via the IP address and password listed in VULTR
+- Then, we can Download Latest Symon exe
+
+<img width="798" height="493" alt="Screenshot 2026-04-07 153645" src="https://github.com/user-attachments/assets/48bf5079-2c5c-4d15-9266-01db77dc0ec0" />
+
+- There is a Sysmon Configuration script we will need to add to the Sysmon installer. We can get that from Github. When we open that and go to ‘raw’, we can save as and then save it INTO the Sysmon download folder.
+
+<img width="694" height="500" alt="Screenshot 2026-04-07 153713" src="https://github.com/user-attachments/assets/29051234-d58f-4010-96d7-81958f38ffdb" />
+
+- We then run the exe from Powershell on the Windows Server machine.
+
+<img width="736" height="534" alt="Screenshot 2026-04-07 153751" src="https://github.com/user-attachments/assets/beb547e5-4d7e-4e27-b2ca-b9f25c0d4698" />
+
+- Once installed, we can see it is installed and running in Services.
+
+<img width="650" height="503" alt="Screenshot 2026-04-07 153811" src="https://github.com/user-attachments/assets/8efb90a0-715c-4fc4-9a6e-9aa917413764" />
