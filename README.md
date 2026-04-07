@@ -107,13 +107,16 @@ I have conducted a hands-on lab that goes over installing servers, including the
     <img width="819" height="531" alt="Screenshot 2026-04-07 105505" src="https://github.com/user-attachments/assets/2b5ec018-6c03-4453-8ab2-79fcd0b97f9b" />
       *** An update may be needed for the Ubuntu Server ***
       
-      <img width="559" height="558" alt="Screenshot 2026-04-07 105505" src="https://github.com/user-attachments/assets/7a416e64-8113-4eb2-a86b-6f497fe9e82c" />
+  <img width="559" height="558" alt="Screenshot 2026-04-07 105505" src="https://github.com/user-attachments/assets/61755c07-8c1e-4f1e-a29d-dd01fe64bf9d" />
+
 
   -Configuring IP address and Port for ElasticSearch
     -We run nano command to change these settings in Elastic search so it points to our hosted server
     
-    <img width="739" height="472" alt="Screenshot 2026-04-07 105912" src="https://github.com/user-attachments/assets/ade8ee3a-372a-4103-a28b-c938580646bd" />
-    <img width="645" height="523" alt="Screenshot 2026-04-07 105956" src="https://github.com/user-attachments/assets/262d9aa2-9041-4bc3-8f85-0a52b7a3654c" />
+<img width="739" height="472" alt="Screenshot 2026-04-07 105912" src="https://github.com/user-attachments/assets/235c9550-a6ca-4570-a161-da13e884713a" />
+
+<img width="645" height="523" alt="Screenshot 2026-04-07 105956" src="https://github.com/user-attachments/assets/47113c19-2ecc-42d3-98ba-3e1469f46696" />
+
 
   -Add a Firewall Group in VULTR
     -We then have to add a Firewall Group for our server to allow access for ElasticSearch
@@ -122,19 +125,19 @@ I have conducted a hands-on lab that goes over installing servers, including the
   -Installing Kibana and setting up with Elasticsearch
     -We will be installing Kibana via Powershell and SSH onto our hosted virtual machine from VULTR.
     -Kibana is an open-source data visualization and exploration tool designed for the Elastic Stack (ELK Stack). 
-    -It acts as the user interface to search, analyze, and visualize data stored in Elasticsearch, allowing      users to create interactive dashboards, charts, and maps to analyze log and time-series data.
-    <img width="944" height="445" alt="Screenshot 2026-04-07 110243" src="https://github.com/user-attachments/assets/fa18a606-0141-45ae-8dd8-cb47b7b36615" />
+    -It acts as the user interface to search, analyze, and visualize data stored in Elasticsearch, allowing users to create interactive dashboards, charts, and maps to analyze log and time-series data.
+    <img width="464" height="407" alt="Screenshot 2026-04-07 110442" src="https://github.com/user-attachments/assets/dc66fb37-6888-4001-ab1d-ab342b3bcb6c" />
+
 
     -We want to Dowload Kibana from the site using DEB x86_64, and then running on our powershell connected to the Linux server
-    <img width="464" height="407" alt="Screenshot 2026-04-07 110442" src="https://github.com/user-attachments/assets/52d511d4-cb40-43e5-8c39-edc1e8d2dc79" />
+<img width="414" height="542" alt="Screenshot 2026-04-07 110503" src="https://github.com/user-attachments/assets/445f714c-8bf6-4378-a9ff-61dfb59c135b" />
 
-    <img width="414" height="542" alt="Screenshot 2026-04-07 110503" src="https://github.com/user-attachments/assets/24c83748-2577-4fea-86b5-95c2afab40db" />
+<img width="842" height="343" alt="Screenshot 2026-04-07 110653" src="https://github.com/user-attachments/assets/6a500d3f-2fff-4039-93da-714c5788dca5" />
 
-    -We then install Kibana such as shown in image
-    <img width="842" height="343" alt="Screenshot 2026-04-07 110653" src="https://github.com/user-attachments/assets/cd48e2da-6040-4fa3-aeb2-83df39cce009" />
+    -We then install Kibana such as shown in image <img width="842" height="343" alt="Screenshot 2026-04-07 110653" src="https://github.com/user-attachments/assets/cd48e2da-6040-4fa3-aeb2-83df39cce009" />
 
     -Back in Nano, we have to change the IP address and Port for Kibana
-    <img width="809" height="354" alt="Screenshot 2026-04-07 110800" src="https://github.com/user-attachments/assets/79d7b625-519e-42da-9852-a308f9cbfaf6" />
+<img width="809" height="354" alt="Screenshot 2026-04-07 110800" src="https://github.com/user-attachments/assets/af204074-a055-4cd9-a8d4-3863e0691704" />
 
     -And select exit prompt for Nano, and save changes
 
