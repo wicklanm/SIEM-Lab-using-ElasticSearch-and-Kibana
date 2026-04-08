@@ -7,6 +7,7 @@ Elasticsearch is a distributed, open-source search and analytics engine designed
 I have conducted a hands-on lab that goes over installing servers, including them on a VPN network, integrating them with Elastic search to be able to be used as a SIEM, system hardening, replicating an attack on both the attacker side and on the defence side withing the SIEM Environment. I will be setting up and configuring a VPC consisting of different servers and firewalls using VULTR. Below is a diagram of the project scope.
 
 This is a a series of labs I have followed along with from [MyDFIR] on Youtube. His play list for this series is called [30-Day MYDFIR SOC Analyst Challenge]
+
 **Source** [https://www.youtube.com/playlist?list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6]
 
 ### Skills gained across the lab
