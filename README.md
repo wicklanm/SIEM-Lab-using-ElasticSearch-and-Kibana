@@ -330,3 +330,26 @@ _Finally, make sure we can view logs coming from our Windows Server's Event View
 <img width="1911" height="912" alt="18_Microsoft_Windows_windowsDefender_eventID_Dashboard" src="https://github.com/user-attachments/assets/2ec366b0-fe48-4e77-adc5-538b766406b2" />
 
 _And Congrats! We have data coming into our ElasticServer, and we are ready to play around to view varoius events and information in our SIEM._
+
+## Setup SSH Server and View Authentication Logs
+- Create a new server in VULTUR
+- Give in 1 GB memory and one RAM
+- Choose your location
+- Choose Ubunto (at this time selecting v25)
+
+<img width="923" height="591" alt="1_installing_Ubuntu_onVULTR" src="https://github.com/user-attachments/assets/e08ea51d-28df-4249-b119-40206937a176" />
+
+_Log into our Ubunto server via Powershell and SSH (SSH root@ipaddressofLinuxserver)_
+- update our server by running 'apt-get update && apt-get -y
+
+<img width="1054" height="794" alt="2_apt_get_update" src="https://github.com/user-attachments/assets/3f598000-a51e-41a9-a7ce-8e81e09eb596" />
+
+<img width="1136" height="852" alt="3_varlogs" src="https://github.com/user-attachments/assets/d5a2adcf-af1a-4d37-b93a-fc4ae241f18d" />
+
+_Activating logs on Ubuntu Server_
+- Go to our directory for Var/Log, and then, run:
+
+- cat auth.log
+- This will eventually load up with logs showing failed authentications
+
+<img width="827" height="208" alt="4runprompts_inorder_to_get_logs" src="https://github.com/user-attachments/assets/3a22281d-27af-43ca-8e5e-a9f4dd2e7362" />
