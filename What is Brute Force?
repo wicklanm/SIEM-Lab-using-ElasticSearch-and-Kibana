@@ -1,0 +1,14 @@
+## Brute force Attack: using every combination there is to try to gain access to password.
+- Brute force attack: try every combination starting with 0000 and so one, to gain access. Usually done in automated fashion
+- Dictionary attack: using a list of words, phrases and password dumps to try to gain access. Also done automattically or done by some prompt to keep trying one-after-another.
+- Credential Stuffing: grab credential dumps and will try every single possible combination in hopes to gain access.
+
+How to defend:
+- Longer passwords/phrases (a trick here is to use a password manager)
+- Multifactor Authentication. you need something else other than password to login (recomend using an authiocator rather than SMS or email)
+- Stay Vigilant
+
+Common Tools used to perform this attack
+- Hydra
+- Hashcat
+- John The Ripper
