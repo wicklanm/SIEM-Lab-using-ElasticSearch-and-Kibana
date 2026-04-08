@@ -223,3 +223,106 @@ _Download Sysmon on Windows Server_
 - Once installed, we can see it is installed and running in Services.
 
 <img width="650" height="503" alt="Screenshot 2026-04-07 153811" src="https://github.com/user-attachments/assets/8efb90a0-715c-4fc4-9a6e-9aa917413764" />
+
+## ElasticSearch Ingest Data
+Ingesting data into Elasticsearch involves collecting, transforming, and sending data to an index where it can be searched.
+- Click on Add Integration
+- Search for Custom Windows event log package
+
+- The custom Windows event log package allows you to ingest events from any Windows event log
+(external, opens in a new tab or window)
+channel. You can get a list of available event log channels by running Get-WinEvent -ListLog * | Format-List -Property LogName
+(external, opens in a new tab or window)
+- in PowerShell on Windows Vista or newer. If Get-WinEvent is not available, Get-EventLog *
+
+<img width="1905" height="954" alt="1_add_integrations" src="https://github.com/user-attachments/assets/82333f6a-4ef5-4e1c-b5ab-797bc39b291a" />
+<img width="1352" height="518" alt="2_Windowscustomevenlogs_choose" src="https://github.com/user-attachments/assets/fad2a6f2-ec16-448e-8039-8d6518461205" />
+
+_Windows Custom Field Mapping_
+- here, we can review the fields that we wormally view from Windows event viewer. These fields and ID's are what we can use to search for them in our Elasticsearch to view logs and do analysis.
+<img width="968" height="899" alt="3_FieldMappings" src="https://github.com/user-attachments/assets/b4dd2d06-a83c-4562-8139-26d01d75103e" />
+
+_Add Event Logs integration_
+- Enter in the fields needed for this integration
+- Choose a name
+
+<img width="958" height="791" alt="4_addintegrationfields" src="https://github.com/user-attachments/assets/e4609a56-6f53-45fb-bdb5-52736cd92c0f" />
+
+- For the channel name, it SHOULD be the full name of the Sysmon Operation Logs found in Event Viewer, see image below.
+
+<img width="988" height="684" alt="5_EventviewerSysmonlogs" src="https://github.com/user-attachments/assets/90096d83-679d-484d-8f8e-2eac17e68150" />
+
+- We want to add this to an existing host - Choose our existing Windows Policy made previously in Elastic.
+
+<img width="801" height="254" alt="6_Existinghost" src="https://github.com/user-attachments/assets/70c87ed9-8726-43be-8920-d985bccab511" />
+
+_Research Windows Event ID’s we want_
+- We then want to add another policy from our Windows Defender
+- First, we wanna check some id’s we would want to include in our policy and log notifications
+
+<img width="894" height="843" alt="8_WindowsEventViewerlog_id_1116" src="https://github.com/user-attachments/assets/dfb09e01-2c95-4012-a4c3-7c89188fcf6a" />
+<img width="566" height="232" alt="8_WindowsEventViewerlog_id_5001" src="https://github.com/user-attachments/assets/f51f0581-0137-4cfc-8233-b537ff0bec31" />
+
+- Then, test by disabling firewall on Windows Server
+
+<img width="1187" height="621" alt="9_Disable_firewall_to_test_logs" src="https://github.com/user-attachments/assets/3e51883b-14a7-4b0c-828b-99f286bd001a" />
+
+- Then, we wanna check event viewer to make sure we can get a 5001 notification.
+
+<img width="635" height="299" alt="Screenshot 2026-04-07 165852" src="https://github.com/user-attachments/assets/3a8ba071-b264-452f-bf0b-c687fca7550c" />
+
+- After that, re-enable firewall
+
+## Add Windows Defender Integration
+- Add new integration and enter in the approraiet fields
+
+<img width="981" height="463" alt="7_Windows_SysmonAddedtoPolicy" src="https://github.com/user-attachments/assets/62e936b4-a641-42cd-baa6-3aced4cf9dae" />
+<img width="843" height="616" alt="10_Start_addingWindefenderIntegration" src="https://github.com/user-attachments/assets/c8f84b5d-98d7-400c-9fca-ffa454f78ca6" />
+
+
+- We are getting the channel name for the Windows Defender Operation Logs under Applications section in Event Viewer, and then clicking on properties to view name.
+- Enter in the event id’s we want. In our case, enter 1116,1117,5001 (just like that with no spaces)
+
+<img width="437" height="248" alt="10_addeventids" src="https://github.com/user-attachments/assets/0485ff7a-1e1f-4b1d-883b-c5faa0973a9e" />
+
+
+- If you want to leave out an id, add a ‘-’ infront of that id.
+- Add this integration to the existing Windows policy
+
+<img width="433" height="127" alt="11_addtowindowspolicy" src="https://github.com/user-attachments/assets/6d5bc21a-6fa6-49ed-baa8-0d303bfc3d7b" />
+
+- We now have our integrated Windows Policies
+
+<img width="933" height="435" alt="12_we_have_our_integration_and_logs_pulled_from_window_server" src="https://github.com/user-attachments/assets/bf5d9e74-0ea0-4908-a9a3-cfcef0a307ea" />
+
+_We may have to add TCP port 9200 to Anywhere in our Firewall set in VULTR_
+
+<img width="1502" height="478" alt="15_add_Firewall_rule_9200" src="https://github.com/user-attachments/assets/55bfb396-bcf9-4ff6-843a-dd9679f30bc6" />
+
+_Confirm we have live data coming into our Windows Server_
+- In our Elastic Server site, click on the hamburger on the top left.
+- Under Management section, click on Fleet
+- We should be able to see we have CPU usage and memory for both Fleet Policies (one for Fleet Server and one for Windows Server)
+- Click on our Windows Server policy
+- We can see we have usage, memory, and that it is currently Healthy.
+
+<img width="1225" height="899" alt="16_wenowhave_memoryandvalues" src="https://github.com/user-attachments/assets/e8fa15cd-5338-4fb1-8e81-00c02812e18a" />
+
+_Finally, make sure we can view logs coming from our Windows Server's Event Viewer_.
+- Click on the hamburger in the upper left
+- Under Analytics section, click on Discover
+- in the search bar above the graph, type in something like 'winlog.event_id: 1'
+- Click on the arrows left of a tab.
+- Click on the second page under document information.
+- Then see we have event provider as Microsoft-Windows-Sysmon
+
+<img width="1916" height="914" alt="17_Microsoft_Windows_sysmon_eventID_Dashboard" src="https://github.com/user-attachments/assets/1b71936e-673f-4a2c-97f3-c5e4d1b7c5ac" />
+
+- Now, in the search, type in 'winlog.event_id: 5001'
+- You may have to filter the calendar to include Today or the last week.
+- We should have at least one record showing after waiting a bit.
+- Click on the arrows to show documentation, then go to 2nd page and see our event provider is Microsoft-Windows-Windows Defender
+
+<img width="1911" height="912" alt="18_Microsoft_Windows_windowsDefender_eventID_Dashboard" src="https://github.com/user-attachments/assets/2ec366b0-fe48-4e77-adc5-538b766406b2" />
+
+_And Congrats! We have data coming into our ElasticServer, and we are ready to play around to view varoius events and information in our SIEM._
