@@ -353,3 +353,47 @@ _Activating logs on Ubuntu Server_
 - This will eventually load up with logs showing failed authentications
 
 <img width="827" height="208" alt="4runprompts_inorder_to_get_logs" src="https://github.com/user-attachments/assets/3a22281d-27af-43ca-8e5e-a9f4dd2e7362" />
+
+## Install Elastic Agent on our newly added Linux Ubuntu Server
+- 
+-
+-
+-
+- We will need to access logs
+- Linux authorization logs are critical for monitoring security events like failed login attempts, sudo usage, and SSH activity.
+- The /var/log/auth.log file (on Debian/Ubuntu) or /var/log/secure (on RHEL/CentOS) is a critical Linux log that records all authorization-related events, including successful/failed login attempts, SSH connections, sudo usage, and user management actions. It is essential for monitoring security and detecting unauthorized access.
+
+<img width="910" height="274" alt="4_Confirming_we_are_logging_for_authlog" src="https://github.com/user-attachments/assets/2d93c696-8b22-4ee1-bdf7-88d20cb9fd3c" />
+
+_Adding a new Fleet Agent_
+- Choose our newly added Linux Policy
+- Choose Enroll in Fleet (Enroll in Elastic Agent in Fleet to automatically deploy updates and centrally manage the agent
+
+<img width="455" height="754" alt="5_add_new_fleet_policy" src="https://github.com/user-attachments/assets/729ab80c-1f36-495a-931b-6bfd6502cf5c" />
+
+- Select the Linux x86_64 option from the dropdown
+- Copy the command (copu icon on upper-right of command)
+
+<img width="451" height="690" alt="6_add_new_fleet_policy_chooseLinux_x86_64" src="https://github.com/user-attachments/assets/9918834f-29e9-4273-808d-be3d92a34e8f" />
+
+- Head over to Powershell, type and enter 'CD' to back out of the var/log directorypaste command and hit enter.
+- Paste the command and hit enter
+
+<img width="971" height="399" alt="7_ElasticAgent_Policy_install" src="https://github.com/user-attachments/assets/42bde1c5-6231-47b6-b9aa-589f257e3e3f" />
+
+- Hit Y for Yes to install as service
+
+<img width="947" height="411" alt="9_ElasticAgent_Policy_instal_hityesl" src="https://github.com/user-attachments/assets/f656702c-c8a6-45ce-944a-15759b95d3d2" />
+
+- During install, we get an Error: fail to execute request to fleet-server: x509
+
+<img width="962" height="414" alt="10_error_ElasticAgent_Policy_instal_hityes" src="https://github.com/user-attachments/assets/6e3395b9-4da8-4c4e-aa84-d65fc05a96ba" />
+
+- It finished installing, despite not working, so we'll need to uninstall
+- Ran the following to uninstall:
+- sudo /opt/Elastic/Agent/elastic-agent uninstall -f
+
+- Then, installed again
+
+<img width="962" height="404" alt="12_Install_policy_reattempt" src="https://github.com/user-attachments/assets/e024350f-71e6-41bd-87a1-e9a7e86dd609" />
+
