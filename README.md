@@ -355,10 +355,16 @@ _Activating logs on Ubuntu Server_
 <img width="827" height="208" alt="4runprompts_inorder_to_get_logs" src="https://github.com/user-attachments/assets/3a22281d-27af-43ca-8e5e-a9f4dd2e7362" />
 
 ## Install Elastic Agent on our newly added Linux Ubuntu Server
-- 
--
--
--
+- We will want to create a new Fleet policy
+<img width="1191" height="583" alt="1_Create_new_Fleet_Policy" src="https://github.com/user-attachments/assets/d771ab33-3ff6-49a2-a54f-0037618ce72f" />
+
+<img width="1196" height="581" alt="2_Create_new_Fleet_Policy" src="https://github.com/user-attachments/assets/c8ee6bb1-5130-4c14-8576-ee4b32907a83" />
+
+- Click on Integration Policy (for me, system 4)
+
+<img width="1200" height="391" alt="3_click_on_integration_policy" src="https://github.com/user-attachments/assets/7951ee13-aca9-418e-8191-e01628b166c0" />
+
+
 - We will need to access logs
 - Linux authorization logs are critical for monitoring security events like failed login attempts, sudo usage, and SSH activity.
 - The /var/log/auth.log file (on Debian/Ubuntu) or /var/log/secure (on RHEL/CentOS) is a critical Linux log that records all authorization-related events, including successful/failed login attempts, SSH connections, sudo usage, and user management actions. It is essential for monitoring security and detecting unauthorized access.
