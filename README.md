@@ -389,11 +389,20 @@ _Adding a new Fleet Agent_
 
 <img width="962" height="414" alt="10_error_ElasticAgent_Policy_instal_hityes" src="https://github.com/user-attachments/assets/6e3395b9-4da8-4c4e-aa84-d65fc05a96ba" />
 
-- It finished installing, despite not working, so we'll need to uninstall
-- Ran the following to uninstall:
-- sudo /opt/Elastic/Agent/elastic-agent uninstall -f
+- Ran again, and it finished installing
 
-- Then, installed again
+<img width="930" height="520" alt="13_installed correctly" src="https://github.com/user-attachments/assets/57a09a8d-0206-449e-a674-4477eb301f83" />
+<img width="454" height="731" alt="14_installed correctly" src="https://github.com/user-attachments/assets/7d56cea5-713e-4a12-ba85-a4e04d3d74e4" />
 
-<img width="962" height="404" alt="12_Install_policy_reattempt" src="https://github.com/user-attachments/assets/e024350f-71e6-41bd-87a1-e9a7e86dd609" />
+- We confirmed we have logs coming through from our new Linux Ubunto Server
 
+<img width="806" height="772" alt="15_conirmedwehave_data" src="https://github.com/user-attachments/assets/24cdda66-198c-42eb-b6ba-b81250e80596" />
+
+- Clicking on the plus sign next to that server allows us to see logs in the table from our new Linux Server
+
+<img width="806" height="772" alt="16" src="https://github.com/user-attachments/assets/6c4190d3-30c9-4db8-a87c-0880bdd11aeb" />
+<img width="970" height="618" alt="17" src="https://github.com/user-attachments/assets/b487f03f-7cd1-48cb-b9cf-391c479c8740" />
+
+- We now have more data and logs coming into our Ubuntu/Linux server
+
+<img width="1894" height="903" alt="18" src="https://github.com/user-attachments/assets/dd06258b-5990-40f3-b5b5-3a92c06400ab" />
