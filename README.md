@@ -412,3 +412,22 @@ _Adding a new Fleet Agent_
 - We now have more data and logs coming into our Ubuntu/Linux server
 
 <img width="1894" height="903" alt="18" src="https://github.com/user-attachments/assets/dd06258b-5990-40f3-b5b5-3a92c06400ab" />
+
+## Create SSH Brute Force Alert & Dashboard
+
+<img width="1073" height="900" alt="1_ Review_activitylogs_onLinixServer" src="https://github.com/user-attachments/assets/a216e0a9-26a5-46cf-b82b-579c915e1144" />
+
+Now that we have our dashboard up, we want to look for failed authentications for brute force attacks. Some fields qwe are looking for are
+- failed attempts
+- user
+- source ip address
+
+<img width="1911" height="641" alt="2_Failed_attempt_logs" src="https://github.com/user-attachments/assets/0b0ce3e6-6a38-4ec5-ac99-d5ba611616f9" />
+
+To get some valid data regarding attemps made from questionable sources, we want to add columns (list of colums found on left under 'search field name), we want to add 'system.auth.ssh.event', username, source.ip, and the source.geo.country_name. We can now see failed attempts amde from these external sources.
+
+<img width="1909" height="576" alt="Bring them all together now with failed attempts" src="https://github.com/user-attachments/assets/968a2961-6f64-4ad8-88b9-013770250c13" />
+<img width="1905" height="750" alt="5_Source_IP_ _Coutnry_Name" src="https://github.com/user-attachments/assets/3b894fab-5669-439b-b25e-19b29805d8a4" />
+<img width="1322" height="651" alt="4_usernames_logs" src="https://github.com/user-attachments/assets/4a7f6a99-265e-4ae6-8306-764365ed194c" />
+<img width="1304" height="552" alt="3_system_auth_Failed_logs" src="https://github.com/user-attachments/assets/43b42479-0d4c-45f0-ab8b-10c688fc87b2" />
+
