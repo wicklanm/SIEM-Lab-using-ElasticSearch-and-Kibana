@@ -417,12 +417,16 @@ _Adding a new Fleet Agent_
 
 <img width="1073" height="900" alt="1_ Review_activitylogs_onLinixServer" src="https://github.com/user-attachments/assets/a216e0a9-26a5-46cf-b82b-579c915e1144" />
 
+
+_Check Dashboard for failed Athentications_
 Now that we have our dashboard up, we want to look for failed authentications for brute force attacks. Some fields qwe are looking for are
 - failed attempts
 - user
 - source ip address
 
 <img width="1911" height="641" alt="2_Failed_attempt_logs" src="https://github.com/user-attachments/assets/0b0ce3e6-6a38-4ec5-ac99-d5ba611616f9" />
+
+_Add Columns to dashboard to look for failed attempts_
 
 To get some valid data regarding attemps made from questionable sources, we want to add columns (list of colums found on left under 'search field name), we want to add 'system.auth.ssh.event', username, source.ip, and the source.geo.country_name. We can now see failed attempts amde from these external sources.
 
@@ -431,3 +435,90 @@ To get some valid data regarding attemps made from questionable sources, we want
 <img width="1322" height="651" alt="4_usernames_logs" src="https://github.com/user-attachments/assets/4a7f6a99-265e-4ae6-8306-764365ed194c" />
 <img width="1304" height="552" alt="3_system_auth_Failed_logs" src="https://github.com/user-attachments/assets/43b42479-0d4c-45f0-ab8b-10c688fc87b2" />
 
+- Let's save our SSH Search Activity
+
+<img width="1349" height="777" alt="7_save_our_SSH_Search_Activity_Search" src="https://github.com/user-attachments/assets/db2ee7f9-42a7-449f-8ad3-3637b66fc01a" />
+
+_Create an Alert for failed SSH Attempts_
+
+Let's now create an alert showing failed ssh attempts within the last 5 minutes, and then test the query.
+
+<img width="1338" height="891" alt="8_Create_an_alert_andtest_quesry" src="https://github.com/user-attachments/assets/d05b44e6-8d72-4405-97ca-133db411618d" />
+<img width="617" height="860" alt="9_Test_query" src="https://github.com/user-attachments/assets/0788d3e3-4ca6-4e1d-ae96-fd3099fa8ea9" />
+
+- We have 22 attempts loged in the last 5 minutes for our alert
+- Select Next
+- We are going to skip the Actions section for now and keep the alert simple.
+- Give the Alert rule a name, then select 'Create rule'
+
+<img width="626" height="810" alt="10_Give_rule_name_and_select_create" src="https://github.com/user-attachments/assets/7164c4c4-1b64-4ce7-a3f5-5ceb462508be" />
+
+_Create a Dashboard to Visualize where these attacks are sourcing from_
+
+- Click on hamburger icon on top left of dashboard
+- Under Analytics sections, click on maps
+- See sections that says 'Filter your data using KQL syntax'
+- Go back to our dashboard quickly and copy our query we used:
+
+<img width="1626" height="133" alt="11_Copy_query_we_had_on_dashboard" src="https://github.com/user-attachments/assets/e889ee4d-40b1-4665-8bfe-1f596652c993" />
+
+- bring over to a notepad and combine that query with failed attempts, user, and source ip coulumns, as such:
+system.auth.ssh.event : * and agent.name: MYSOCENV-Linux and system.auth.ssh.event: Failed
+- Hit enter to validate that it returns with logs
+- copy that query
+- Head back over to Maps under Analytics section
+- Paste that search query we just copied
+- content will not show on map yet
+
+<img width="1309" height="601" alt="12_enter_query_in_maps_section" src="https://github.com/user-attachments/assets/fc45d002-c8ff-4b83-b8d2-191fdf5527eb" />
+
+- Let's add a layer by choosing Chlorepleth (shaes areas to compare statistics across boundaries)
+- We can choose from administrative boundaries from the Elastic Maps Service, OR, points, lines, and polygons  from Elastic Search. For this lab, we will choose Administrative boundaries and select World Countries.
+- Keep the Join Field as defulted
+- For Data view, we wanna use what we were using for the dashboard.
+- Confirm we have the same dataview from dashboard
+
+<img width="496" height="515" alt="14_DataView" src="https://github.com/user-attachments/assets/f6567de5-f1bf-462d-b7ef-684c205c09fd" />
+
+- Then, select that option as the data view
+- Then for join field, we will want to select 'source.geo.country_iso_code'. We don't want to use Country name, as we will likely get following error:
+
+_An error occurred when adding join metrics to layer features
+
+Left field values do not match right field values. Left field: 'ISO 3166-1 alpha-2 code' has values: AD,AE,AF,AG,AI (5 of 500). Right field: 'source.geo.country_name' has values: Romania,The Netherlands,United States,Netherlands,Luxembourg (5 of 23)._
+
+-The Join Field (ISO 3166-1 alpha-2 code) wants the abbreviated name for this.
+
+- Select 'Add and continue' for the map
+
+<img width="1917" height="877" alt="15_Add_and_continue_map" src="https://github.com/user-attachments/assets/4e21de04-de1b-462d-8023-5f5956022100" />
+
+- Review Layer Settings. For this lab, For this instance, we can leave these as defaulted.
+
+<img width="448" height="663" alt="16_layer_Settings" src="https://github.com/user-attachments/assets/40cfe308-5e28-4a47-89b3-7026f26219d6" />
+
+- Click on Save on top right
+- Give the map a title, like SSH Network Map, and save to Dashboard.
+
+- In the dashbaord, give it a name, and you can sift through the time to see the countries change it colors. We can see a lot of attacks from China, and definately Romania.
+
+-Give the map a name as well, like "SSH Failed Authentication - Network Map"
+
+<img width="1912" height="637" alt="18_Save_to_dashboard_edit_time_Analyze_where_attacks_are_coming_from" src="https://github.com/user-attachments/assets/ef51c717-f076-4c30-80ab-adb0d03c45bb" />
+
+_Make another map showing Successful authentications_
+- Make another map/dashboard by duplicating this one (three dots on upper right). Give it a name like SSH Successful Authentications, and apply.
+- Change the query at the very end to read "Accepted" instead of "Failed"
+
+<img width="1314" height="628" alt="Accepted_SSH_Map" src="https://github.com/user-attachments/assets/3d26b504-df5d-45b1-9b58-e8a9c753b490" />
+
+- Select Save and Return
+
+_Comapre our two maps_
+- We have thousands of failed attemps coming from various countries and foreign ip's, 
+- and we have only 3 successful SSH attempts coming from the USA.
+- Select Save to complete the dashboard.
+
+<img width="1443" height="868" alt="Screenshot 2026-04-13 173720" src="https://github.com/user-attachments/assets/b6a13b03-a117-4fae-8445-f521626ca21f" />
+
+**_Congratulations! We now have an alert and an affective dashboard!_**
