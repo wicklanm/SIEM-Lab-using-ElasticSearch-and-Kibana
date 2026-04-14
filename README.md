@@ -523,3 +523,35 @@ _Comapre our two maps_
 
 **_Congratulations! We now have an alert and an affective dashboard!_**
 _We can now be alerted the next time a brute force attack occurs, and we can view where these are sourcing from._
+
+## Remote Desktop Protocol
+
+_RDP was abused in over 90% of cyber attacks_
+In this section, we will learn about RDP, why it is used, how attackers abuse it, how to find endpoints with exposed RDP and how you can protect yourself.
+
+### What is it?
+- Remote Desktop Protocol is used for communication between Terminal Server and the Terminal Server client. RDP is encapsulated and encrypted within TCP and has a default port of 3389/TCP.
+- It can be used remotely to connect to another machine.
+
+### How does it get abused?
+- An attacker can gain entry into a network or an environment through an exposed RDP service to a server.
+- Once they have access, they can perform credential dumping to gather valid credentials found on that server, then, use those credentials to move laterraly onto other servers or machines withing the same network using RDP.
+- They can also conduct data exfiltration, ransomware, or both.
+
+### How to find Exposed RDP Servers
+_Shodan_
+- Shodan is a specialized search engine that crawls the internet to index devices, servers, and systems—such as webcams, routers, and industrial control systems—rather than webpages.
+- As an example, On Shodan, once we type in 'port:3389' onto the search, it gives us data showing that there are over 2,500,000 RDP instances where the default 3389 port is set as open!
+
+<img width="1149" height="676" alt="Shodan_port3389_search" src="https://github.com/user-attachments/assets/a108568e-5671-41cb-afa5-cb539cbee9cf" />
+
+_Censys_
+- Censys is a cybersecurity platform that continuously scans and maps the entire internet to identify, monitor, and analyze publicly accessible devices, domains, and certificates.
+- We can enter a search query to view exposed RDP sessions and their host IP address by entering "host.services: (port: 3389 and protocol: "RDP") "
+
+<img width="1629" height="871" alt="2_Sensys_Search" src="https://github.com/user-attachments/assets/4ad58634-b5e2-448b-b435-bf627620a278" />
+
+- We can then click onto an individual RDP session. We can see if it is secure or not, and the specefics of the connection. Using this site can help us identify assets with potentially sensitive services that are exposed to the internet. Knowing these can help us reduce the risk of potential compromise.
+
+<img width="1895" height="820" alt="3_Sensys_Search" src="https://github.com/user-attachments/assets/b69a68c4-88e0-481e-8436-dc8d000a2001" />
+
