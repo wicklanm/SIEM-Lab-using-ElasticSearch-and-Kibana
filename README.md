@@ -522,3 +522,4 @@ _Comapre our two maps_
 <img width="1443" height="868" alt="Screenshot 2026-04-13 173720" src="https://github.com/user-attachments/assets/b6a13b03-a117-4fae-8445-f521626ca21f" />
 
 **_Congratulations! We now have an alert and an affective dashboard!_**
+_We can now be alerted the next time a brute force attack occurs, and we can view where these are sourcing from._
