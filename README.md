@@ -555,3 +555,19 @@ _Censys_
 
 <img width="1895" height="820" alt="3_Sensys_Search" src="https://github.com/user-attachments/assets/b69a68c4-88e0-481e-8436-dc8d000a2001" />
 
+This result below is potentially an example of a bad RDP instance since the browser is not trusted, and perhaps they are using HTTP for a login page in a network.
+
+<img width="878" height="756" alt="4_Sensys_Search" src="https://github.com/user-attachments/assets/e42a3236-017d-4bce-945a-38150d8e2df1" />
+
+### How to Protect Yourself
+
+1) Turn it off. Often, developer tend to use RDP to remote into servers to review or make code on a server, in SQL, or something else, then fogot to turn off the session when they are done.
+
+2) Use Multifactor Authentication
+
+3) Restrict Access. Implement firewall rules to restrict access to indivuals outside an environment or domain, so onlt the ones inside can RDP.
+
+4) Have better Passwords (15 or more characters, containg upper,lowercase, numbers, and special characters.
+
+5) Don't use default accounts (Disable default accounts coming from systems and make new credentials with complex passwords and other security features)
+
