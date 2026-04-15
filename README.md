@@ -571,3 +571,106 @@ This result below is potentially an example of a bad RDP instance since the brow
 
 5) Don't use default accounts (Disable default accounts coming from systems and make new credentials with complex passwords and other security features)
 
+## Creating Alerts and Dashboards for Windows Server
+
+We will be looking for brute force attacks. The Event ID for a failed login attemopt is 4625. This event is recorded in the security log whenever a user fails to log on to a Windows system, capuring key details such as the username, source IP address, and the reason for the failure.
+
+_Creating Failed logon Dashbaord_
+- We can now have our dashboard setup to include just these events by entering 'event.code: 4625'
+- We will also add 'source.ip' and 'user.name'
+
+<img width="1218" height="739" alt="4_eventcodeescontaining4625" src="https://github.com/user-attachments/assets/4e47c4c4-ca53-4957-8b3c-a9d1f6da9ff3" />
+
+- Enter save and give it a name
+
+<img width="1952" height="824" alt="5_saverdpfailedactivity" src="https://github.com/user-attachments/assets/c9067a02-e9f1-4d2a-aeb0-a2d344398b9b" />
+
+- We see for this attempt on top, if we expand the message field, and view Logon Type, we have 3, which means it is a network-based authentication.
+- Let's test the log by trying to RDP into the Windows server. Let's falsley type in the password so we can get a failed message.
+
+<img width="446" height="493" alt="7_failed_RDP" src="https://github.com/user-attachments/assets/b5f4963c-98d1-4738-9e48-4fbcbb49f451" />
+
+- Once failed, go back to dashbard and refresh and filter down to the last minute. We have our failed attempt showing here. Also, if you expand the message you can confirm it iss a logon type 3.
+
+<img width="1218" height="461" alt="8_Failed_attempt_dashboard" src="https://github.com/user-attachments/assets/20d4a092-2fc2-452a-a5ab-f5613c632357" />
+
+_Create successful logon Dashboard_
+
+- We want to create a search Threshhold Rule from the dashboard, upper left.
+- Set the definition like so:
+
+<img width="497" height="833" alt="9_set_definition" src="https://github.com/user-attachments/assets/7ed2c6fd-e433-49eb-96b0-db471626d93d" />
+
+- add name and select 'create rule'  (can skip actions)
+
+<img width="480" height="829" alt="10_create_rule" src="https://github.com/user-attachments/assets/93025016-22de-41e9-94e6-d996b4d97188" />
+
+_Let's create a new rule for our alert!_
+-Go to Security under hamburger icon, click Rules.
+- Click on add new rule.
+- Select Threshold rule
+
+1) Define Rule
+- enter in our query we used in previous section: system.auth.ssh.event : * and agent.name: MYSOCENV-WIN and system.auth.ssh.event: Failed and user.name: "root" 
+- add user.name: root at the end to include that.
+- Group by both user.name and source.ip
+- Add source.ip and username fields as required fields.
+
+2) About Rule
+- For the name, give it something obvious like "MYSOC-SSH-Brute-Force-Attempt"
+- Description can be something like: This rule detects failed authentications towards the account "root"
+- Let's make the Severity medium
+- can keep Default risk score as 50
+- Under Advanced Settings, we could choose to enter any Referance URL's if we see anything online or cybernews saying there are attacks coming from a certain source. We will leave blank for this.
+- Select 'Source.ip for the Custom Highlighted field.
+- Select continue
+
+3) Schedule Rule
+- Can set to run ebery 5 minutes and look-back time can be 5 minutes.
+
+4) Rule actions
+- leave as is.
+- Create
+- We have our rule
+
+<img width="1031" height="754" alt="11_BruteforceRulecreated" src="https://github.com/user-attachments/assets/d0f9b392-3a87-4ecf-833b-0a6df341043a" />
+
+_Now we will create a new rule for our RDP sessions_
+
+- Create new rule with the same template as before
+1) Define Rule
+- enter our query from before, and then add user.name: Administrator instead: system.auth.ssh.event : * and agent.name: MYSOCENV-WIN and system.auth.ssh.event: Failed and user.name: Administrator
+- add user.name: root at the end to include that.
+- Group by both user.name and source.ip
+- Add source.ip and username fields as required fields.
+
+  <img width="619" height="794" alt="12_RDP_Rulecreated" src="https://github.com/user-attachments/assets/08236d5d-b6c8-44d4-968d-876307588af0" />
+
+2) About Rule
+- Add name, include RDP in there to identify it is alerting for RDP sessions.
+- Set description
+- set severity medium
+- leave default risk score
+
+3) Schedule Rule
+- Have it run every minute, and have addmitional look-back time be 5 minutes.
+
+- Create and enable rule
+
+<img width="1034" height="753" alt="13_RDP_Rulecreated" src="https://github.com/user-attachments/assets/243545f2-ee5e-41c2-a700-cd39a200c06d" />
+
+_Later, we can test these rules_
+
+<img width="1897" height="651" alt="14_DetectionRules" src="https://github.com/user-attachments/assets/f2c17616-5321-4d20-83c7-f5003a215664" />
+
+- We can now check our alerts and see if we have any coming from our rules. 
+
+_Uh-oh_. We are getting and error from the Security > Rules menu: 
+Error: Forbidden     at Fetch.fetchResponse (http://149.28.117.193:5601/80a75d1ae44e/bundles/core/core.entry.js:1:244683)     at async fetch (http://149.28.117.193:5601/80a75d1ae44e/bundles/core/core.entry.js:1:248484)     at async http://149.28.117.193:5601/80a75d1ae44e/bundles/core/core.entry.js:1:242716     at async http://149.28.117.193:5601/80a75d1ae44e/bundles/core/core.entry.js:1:242673
+
+- The "Forbidden" error in Elastic/Kibana is an HTTP 403 response, meaning the system is rejecting the request due to insufficient permissions. It's not a configuration bug in my detection rule itself — it's an authorization/privilege issue preventing the rule from executing or writing alerts.
+
+- To solve this, go to:
+- Go to Stack Management → Roles
+- Find the role assigned to your user
+- Add privileges for kibana_security feature and the relevant index patterns
