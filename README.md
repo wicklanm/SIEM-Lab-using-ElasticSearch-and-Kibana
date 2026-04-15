@@ -672,5 +672,5 @@ Error: Forbidden     at Fetch.fetchResponse (http://149.28.117.193:5601/80a75d1a
 
 - To solve this, go to:
 - Go to Stack Management → Roles
-- Find the role assigned to your user
+- Find the role assigned to your user. You may need to determine this by looking at the assigned role for the username used to log into elasticsearch (for my case, elastic)
 - Add privileges for kibana_security feature and the relevant index patterns
