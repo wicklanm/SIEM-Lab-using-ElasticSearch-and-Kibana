@@ -670,7 +670,9 @@ Error: Forbidden     at Fetch.fetchResponse (http://149.28.117.193:5601/80a75d1a
 
 - The "Forbidden" error in Elastic/Kibana is an HTTP 403 response, meaning the system is rejecting the request due to insufficient permissions. It's not a configuration bug in my detection rule itself — it's an authorization/privilege issue preventing the rule from executing or writing alerts.
 
-- To solve this, go to:
-- Go to Stack Management → Roles
-- Find the role assigned to your user. You may need to determine this by looking at the assigned role for the username used to log into elasticsearch (for my case, elastic)
-- Add privileges for kibana_security feature and the relevant index patterns
+- So after asking about this issue in the Elasticsearch Forum (I recomend turning to that if you are ever stuck in Elasticsearch or Kibana), this is a bug current to version 9.0 to 9.3.3
+- I am current to 9.2, so I will have to update my ElasticSearch system to either version 9.3.4, or version 9.4
+- I will be following this guide to update:
+https://www.elastic.co/docs/deploy-manage/upgrade/deployment-or-cluster/self-managed
+
+<img width="774" height="777" alt="16_Update_ElasticsearchClusterGuide" src="https://github.com/user-attachments/assets/e7db4026-3614-41c4-9597-4bfeb7909f35" />
