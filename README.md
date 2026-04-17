@@ -800,3 +800,31 @@ _All Tables have the username, source ip, country of origin, and the number of a
 **_Congratulations! We now have a Dashboard that shows global maps with their corresponding tables of failed and successful Authentications from their source of origin, with their source ip address and number of records shown._**
 
 <img width="1909" height="906" alt="Screenshot 2026-04-16 185250" src="https://github.com/user-attachments/assets/46a24749-4e55-43cf-b79f-b65e42a8953f" />
+
+# Establish a command and control session
+
+## What is a Command and control?
+It's where an attacker has control over a victim's computer, so they perform actions on it to complete their objective.
+
+
+## Why is it important?
+It is important because attackers perform actions on it to complete their objective: 
+- Credential access
+- Lateral movement
+- Exfiltration
+- Ransomware
+
+## What are some of the tools/frameworks?
+
+- Metaploit: The most widely used open-source penetration testing framework. allows security professionals to find, exploit, and validate vulnerabilities in systems, networks, and applications. 
+It features a vast database of exploits, payload generation, and post-exploitation tools, often used to simulate attacks.
+
+- Cobalt Strike: commonly seen in compromised environments. The industry professionals have help come up with a detection method for Cobalt Strike.
+
+- Sliver: Sliver is an open-source, cross-platform command and control (C2) framework designed for security professionals and red teams to emulate adversary behavior. Written in Go, it generates 
+dynamically compiled implants that evade detection, supporting Windows, macOS, and Linux, and is managed by BishopFox. It is known as an alternative to cobalt strike.
+
+- MNythic: We will be using Mythic in this lab. Mythic is an open-source, cross-platform, and modular Command and Control (C2) framework designed for red teaming and authorized penetration testing. It acts as a "multiplayer" platform 
+allowing multiple operators to collaborate through a web interface, managing agents that communicate with victims across various operating systems.
+
+Next, we will be using this to create a c2 session to replicate an attack from an outside server.
