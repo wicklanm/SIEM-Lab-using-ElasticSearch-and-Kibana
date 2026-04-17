@@ -828,7 +828,7 @@ dynamically compiled implants that evade detection, supporting Windows, macOS, a
 allowing multiple operators to collaborate through a web interface, managing agents that communicate with victims across various operating systems.
 
 Next, we will be using this to create a c2 session to replicate an attack from an outside server.
-Below is a diagram of our activity:
+Below is a diagram of our activity, maped out so we know our path and plan of attack:
 
 <img width="749" height="1347" alt="Attack Diagram drawio" src="https://github.com/user-attachments/assets/40cefcfa-4329-40f1-bc6a-f344f361518d" />
 
