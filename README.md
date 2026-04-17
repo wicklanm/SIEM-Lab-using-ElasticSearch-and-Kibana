@@ -676,3 +676,70 @@ Error: Forbidden     at Fetch.fetchResponse (http://149.28.117.193:5601/80a75d1a
 https://www.elastic.co/docs/deploy-manage/upgrade/deployment-or-cluster/self-managed
 
 <img width="774" height="777" alt="16_Update_ElasticsearchClusterGuide" src="https://github.com/user-attachments/assets/e7db4026-3614-41c4-9597-4bfeb7909f35" />
+
+## Create a Dashboard for RDP Activity
+
+- Let's Select our saved Dashboard for RDP failed Activity
+
+<img width="1333" height="826" alt="1_Review_Our_dashboard_selectsavedone" src="https://github.com/user-attachments/assets/925bdbf4-52b2-4cb9-aa84-802760e81e91" />
+
+- Copy that event code: 4625 in the search, and enter it in our notepad from before. Let's make a query to include that event id with our agent name.
+
+<img width="508" height="199" alt="2_copy_code" src="https://github.com/user-attachments/assets/1baed7a8-c5ac-4306-832a-9858b9001778" />
+
+- Copy that code, go to maps, and past in that query
+- Add a layer and select Chlorapleth
+- Enter in the information like so:
+
+  <img width="1338" height="911" alt="3_Make_map" src="https://github.com/user-attachments/assets/788f4554-b1b3-4d62-bb4f-de0c6f3f405d" />
+
+_There are 34,115 failed attemps coming from Romnia in the last 7 days.... wow!_
+
+- Click on Continue, then save on top right (we want to save to Library).
+- We wan to add this new map to our existing Dashboard (MYSOC-Authentication-Activity) where we made the other two maps (SSH failed and successfuly activity)
+- If you cannot add it from there, you may need to go to that Dashboard first, select add, select Library, and choose our new map from there.
+- feel free to toggle and adjust the maps to fit neatly in the dashboard.
+
+### Creating a 4th map to show successful RDP conneciton attempts
+
+_If we look up what even ID shows a successful login to a computer, a simple internet search can tell us._
+
+- Windows Event ID 4624 signifies a successful logon to a computer. Generated in the Security log, this event records essential forensic data including the username, domain, logon type, and source IP address. It is crucial for monitoring unauthorized access, lateral movement, and insider threats.
+- Let's go back to our Discover screen in Elastic, and add event.code: 4624 to the search
+
+<img width="1332" height="597" alt="4" src="https://github.com/user-attachments/assets/d6a75c82-ab47-47e3-8da0-08c9739d2fa9" />
+
+- Notice our logon Type is 5, which is a service startup logon.
+
+<img width="1054" height="518" alt="5" src="https://github.com/user-attachments/assets/785ddfc5-91de-481c-87db-e312d13809c4" />
+<img width="614" height="719" alt="6" src="https://github.com/user-attachments/assets/fc73ae73-3d16-4504-8654-cc52f9950636" />
+
+- We will need to use that field, winlog.event_data.LogonType
+
+<img width="638" height="598" alt="7_windlogeventlogontype" src="https://github.com/user-attachments/assets/eabc4c12-5bfd-4b7c-b372-882f989eeb53" />
+
+- Referring to our table, we will want codes 7 and 10. The quwey will be:
+- event.code: 4624 and (winlog.event_data.LogonType: 10 or winlog.event_data.LogonType: 7)
+
+
+<img width="1070" height="493" alt="Screenshot 2026-04-16 174252" src="https://github.com/user-attachments/assets/587a5f43-6d96-434e-8a45-0b72c7a8cfad" />
+
+- Save this Discover as 'RDP Sucessful Activity'
+
+_Add the new map in our Dashboard_
+
+Back in our Dashboard, Click on the 3 dots 
+on our RDP failed Authentication map, and select Duplicate.
+- Edit the duplicate map
+- Update our query on the top by pasting our newer query
+- See the map update with data
+- Select Save and return
+- Change the name to something like 'RDP Successful Authentications' and select apply.
+
+<img width="1333" height="866" alt="Screenshot 2026-04-16 175041" src="https://github.com/user-attachments/assets/e3ce1e4a-1b67-4509-ab2c-e317f09ad94f" />
+
+- We have our Dashboard
+- If we toggle to the last 15 minutes, we should not have much, if not anything for failed attempts. Except for me, I have one failed RDP authentication. We do see some activity for failed RDP connections, and 36 failed SSH connections from Romania. 
+
+<img width="1609" height="731" alt="Screenshot 2026-04-16 175525" src="https://github.com/user-attachments/assets/93f8e6c6-cbff-45cf-ae61-755b28e14a99" />
+
