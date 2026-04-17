@@ -832,3 +832,8 @@ Below is a diagram of our activity, maped out so we know our path and plan of at
 
 <img width="749" height="1347" alt="Attack Diagram drawio" src="https://github.com/user-attachments/assets/40cefcfa-4329-40f1-bc6a-f344f361518d" />
 
+## Setting up Mythic Server
+
+- Install an Ubuntu Server with 2 CPU and 4 GB of Ram. Give it a name to indicate it is using MYTHIC
+<img width="1505" height="864" alt="1" src="https://github.com/user-attachments/assets/906997f7-a468-4a0d-bd7b-85eb5e9e88f0" />
+
