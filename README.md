@@ -779,3 +779,24 @@ _Improving our visuals for the dashboard_
 
 <img width="1400" height="859" alt="Screenshot 2026-04-16 184104" src="https://github.com/user-attachments/assets/69fee723-a8c8-4aa3-b855-d21ff339aa30" />
 
+_Now creating tables for RDP authentications_
+
+- Duplicate one of the tables
+- Give it a name like RDP failed Authentications
+- Edit the query, and paste the query in the search bar FROM our notepad (event.code: 4625 and agent.name: MYSOCENV-WIN).
+- Save and Return.
+
+
+_Now making RDP successes_
+ Duplicate the last table
+- Give it a name like RDP failed Authentications
+- Edit the query, and paste the query in the search bar FROM our notepad (event.code: 4625 and agent.name: MYSOCENV-WIN). Update.
+- Save and Return.
+
+_All Tables have the username, source ip, country of origin, and the number of authentication attempts._
+
+- Select Save on top right to save our Dashboard.
+
+**_Congragulations! We now have a Dashboard that shows global maps with their corresponding tables of failed and successful Authentications from their source of origin, with their source ip address and number of records shown._**
+
+<img width="1909" height="906" alt="Screenshot 2026-04-16 185250" src="https://github.com/user-attachments/assets/46a24749-4e55-43cf-b79f-b65e42a8953f" />
