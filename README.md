@@ -743,3 +743,39 @@ on our RDP failed Authentication map, and select Duplicate.
 
 <img width="1609" height="731" alt="Screenshot 2026-04-16 175525" src="https://github.com/user-attachments/assets/93f8e6c6-cbff-45cf-ae61-755b28e14a99" />
 
+_Improving our visuals for the dashboard_
+- On Dash board, select add, and select Visualization.
+- Add our first query used, system.auth.ssh.event: * and agent.name: MYSOCENV-Linux and system.auth.ssh.event: Failed
+- Add a timestamp, source.ip
+- on top right, select table in dropdown instead of bar chart
+- We have our source ip column and timestamp column. Make the timestamp appear first.
+- include user.name and sorce.geo.country_name
+- Afer looking at table, the timestamp just create more noise than needed, so let's remove that from our rows in the table in the right to remove it.
+- click on the user.name and make the number of values to be 10, and, take off the group remaining values as 'other' option.
+- Do the same for Source.ip as well.
+
+<img width="344" height="763" alt="Screenshot 2026-04-16 181955" src="https://github.com/user-attachments/assets/1ece63a0-0dc6-4957-a136-0b56aa187eba" />
+
+- set our Count of records as Sort Decending
+- Our dashbopard is setup. Now let's Save and return.
+
+<img width="1912" height="887" alt="Screenshot 2026-04-16 182236" src="https://github.com/user-attachments/assets/daadefa9-fc3f-4b1b-82ac-bd4095eef3c5" />
+
+- In our Dashboard, click on settings for the new view, and give it a name like 'SSH Failed Activity [Table]'. Click Apply.
+- Let's put that table between our SSH Maps (failed and successful)
+
+<img width="1904" height="865" alt="Screenshot 2026-04-16 182825" src="https://github.com/user-attachments/assets/12352c9d-1ac7-4c05-9bfa-27dbb5f64aee" />
+
+- Now, let's add another table for our Successes.
+- Duplicate the table
+- Change the name to 'SSH Successful Authentications [Table] '
+- Adjust the query for this new table by clicking on it's settings.
+- Select Edit next to the query shown. Yopu might have to also click on 'Edit in Lense'
+- In query on top bar, change from Failed to Accepted at the end.
+
+<img width="1330" height="543" alt="Screenshot 2026-04-16 183813" src="https://github.com/user-attachments/assets/7fc0d681-fad4-41d3-9e88-24fd8164215e" />
+
+- Click on Save and Return. We have our tables for SSH authentications
+
+<img width="1400" height="859" alt="Screenshot 2026-04-16 184104" src="https://github.com/user-attachments/assets/69fee723-a8c8-4aa3-b855-d21ff339aa30" />
+
