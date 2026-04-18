@@ -890,7 +890,7 @@ _Browse to our Mythic Server URL via the ip address_
 
 enter in the full URL of the Mythic Server using the IP address USING HTTPS, and port 7443
 
-<img width="1380" height="703" alt="19_Add_HTTPS_to_connect" src="https://github.com/user-attachments/assets/df535023-8262-42a4-a7e6-180a157bc12e" />
+<img width="1298" height="640" alt="Screenshot 2026-04-18 151704" src="https://github.com/user-attachments/assets/8c8c0069-98e4-4e7b-adb3-d100ae61d2ad" />
 
 -We can view our Mythic Login username and password using command 'cat .env' in Powershell in our Mythic Directory.
 
