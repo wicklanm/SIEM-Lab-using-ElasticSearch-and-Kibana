@@ -871,3 +871,42 @@ Docker Compose is an orchestration tool designed for defining and running multi-
 - It launches the Mythic C2 framework, bringing up all default Docker containers, including the database, server, and UI, within the Mythic directory. It is used to initialize the framework, requiring pre-installed Docker and make to compile the binary.
 
 <img width="769" height="567" alt="13_Mythic_CLI_start_command" src="https://github.com/user-attachments/assets/63877188-9ce9-4fff-a90b-8b26b75b36a6" />
+
+_We now want to add a new firewall group for our Mythic Server in order for it to connect to other machines in our VPC from VULTR._
+
+-Manage Firewall under our Mythic Server
+
+<img width="802" height="536" alt="14_update_firewall_group" src="https://github.com/user-attachments/assets/007f94de-6629-4c19-a5fa-0654f54bfc8e" />
+
+- Add a TCP Rule for OUR personal computer, another for our Windows Server, and another for our Linux/SSH Server
+
+<img width="1262" height="405" alt="16_add_TCP_Rule_forWindows_Linux_and_my_personal_machine" src="https://github.com/user-attachments/assets/1e6870e9-d875-4222-b6f2-a93f8d36b675" />
+
+-Associate that new firewall group under our Mythic server, then select 'update Firewall Group'
+
+<img width="1014" height="528" alt="17_gotoMYTHIC_Server_andadd_Firewalltoitpng" src="https://github.com/user-attachments/assets/90e38d36-7db8-4f7a-83f8-e9f622c241eb" />
+
+_Browse to our Mythic Server URL via the ip address_
+
+enter in the full URL of the Mythic Server using the IP address USING HTTPS, and port 7443
+
+<img width="1380" height="703" alt="19_Add_HTTPS_to_connect" src="https://github.com/user-attachments/assets/df535023-8262-42a4-a7e6-180a157bc12e" />
+
+-We can view our Mythic Login username and password using command 'cat .env' in Powershell in our Mythic Directory.
+
+<img width="489" height="22" alt="20_MYTHIC_cat_env_tofindmythicadminpassord" src="https://github.com/user-attachments/assets/f66ba3f4-c89a-4644-8b67-daf0491cd444" />
+<img width="506" height="168" alt="21_password_in_ENV_DIRECTORY" src="https://github.com/user-attachments/assets/2e13a52e-086e-4e05-b459-636a2b7b8709" />
+
+- We are now logged into our Mythic Server
+
+<img width="1893" height="902" alt="22_MYTHIC_Home_Page" src="https://github.com/user-attachments/assets/3f7bd609-73eb-49fe-8342-bdcbf503c2ca" />
+
+- We can view installed services, view and add payloads, view and add and remove files, and more.
+
+<img width="1620" height="586" alt="23_installed_services_Payloads_Mythic" src="https://github.com/user-attachments/assets/1c591170-52c6-47f2-a1b6-3ec8de2443d9" />
+<img width="1803" height="322" alt="25_Files" src="https://github.com/user-attachments/assets/02c0334f-0a79-4334-91e9-244b80bd3105" />
+<img width="1889" height="356" alt="24_Payloads_Mythic" src="https://github.com/user-attachments/assets/2e6e969f-9146-4af5-8800-029eef11cdda" />
+
+_Next, we will properly setup our Mythic Server, create our Muthic Agent, and start conducting attaks on our Windows Server machine. _
+
+_WARNING. Please use Mythic and Linux server to test and practice in a controlled environment. Run and set these up on an environment you own and have permission to tamper with. Also please make sure you are able to correct any vulnerabilities made in this lab, or wipe everything in these servers when finished. It may be wise to have a screenshot of these environments before playing with these._
