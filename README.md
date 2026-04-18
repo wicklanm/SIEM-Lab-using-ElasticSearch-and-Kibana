@@ -816,7 +816,7 @@ It is important because attackers perform actions on it to complete their object
 
 ## What are some of the tools/frameworks?
 
-- Metaploit: The most widely used open-source penetration testing framework. allows security professionals to find, exploit, and validate vulnerabilities in systems, networks, and applications. 
+- Metasploit: The most widely used open-source penetration testing framework. allows security professionals to find, exploit, and validate vulnerabilities in systems, networks, and applications. 
 It features a vast database of exploits, payload generation, and post-exploitation tools, often used to simulate attacks.
 
 - Cobalt Strike: commonly seen in compromised environments. The industry professionals have help come up with a detection method for Cobalt Strike.
@@ -837,3 +837,37 @@ Below is a diagram of our activity, maped out so we know our path and plan of at
 - Install an Ubuntu Server with 2 CPU and 4 GB of Ram. Give it a name to indicate it is using MYTHIC
 <img width="1505" height="864" alt="1" src="https://github.com/user-attachments/assets/906997f7-a468-4a0d-bd7b-85eb5e9e88f0" />
 
+_let's make sure we have an attack server setup. Since it is outside of our target network, we will need it to not be on the VPC._
+- In my case, I will be using Virtualbox to host my Linux Attack Server.
+- You will want to install the iso file in your VMware, Vurtualbox, or whatever you are using.
+
+_Now we can install Mythic on our Mythic Server WITHIN the network_
+- Add Mythic Server with Ubunto 
+- Connect to Mythic server via Powershell
+
+<img width="1169" height="748" alt="4_SSHintoMythicUbuntuserver" src="https://github.com/user-attachments/assets/8b787a1f-bc20-46b8-be6e-cb59cd9377c1" />
+
+- Update the repository
+
+<img width="934" height="498" alt="5_update repository" src="https://github.com/user-attachments/assets/9aee5a8c-995b-4e3c-b391-e4ecc0bb0288" />
+
+- Install Docker Compose
+Docker Compose is an orchestration tool designed for defining and running multi-container applications. It allows you to manage a complete stack of services (such as a web server, database, and cache) as a single entity using a declarative configuration file.
+
+- Set our Direcoty to Mythic using prompt 'CD Mythic'
+- Run 'ls' to see out options in the Mythic Folder.
+- Run 'install_docker_Ubuntu.sh
+- You might run into an issue where the docker failed to start or even install properly.
+- If so, run 'systemctl status docker' to see the status
+
+<img width="930" height="366" alt="10_docker_status_failed" src="https://github.com/user-attachments/assets/1c3791c6-a0b1-42ad-970b-5065facc717d" />
+
+- Mine came up as inactive (dead), in which I decided to to run the 'reinstall' command. I then ran the 'restart' command. I checked the service status again, and it was running.
+
+- Now, run the 'make' command.
+- The make command is a build automation tool in Linux used primarily to manage the compilation and installation of software. It operates by reading a configuration file, typically named Makefile, which defines the relationships between files and the commands needed to build them.
+
+- Next, run './mythic-cli start' command in linux.
+- It launches the Mythic C2 framework, bringing up all default Docker containers, including the database, server, and UI, within the Mythic directory. It is used to initialize the framework, requiring pre-installed Docker and make to compile the binary.
+
+<img width="769" height="567" alt="13_Mythic_CLI_start_command" src="https://github.com/user-attachments/assets/63877188-9ce9-4fff-a90b-8b26b75b36a6" />
