@@ -910,3 +910,30 @@ enter in the full URL of the Mythic Server using the IP address USING HTTPS, and
 _Next, we will properly setup our Mythic Server, create our Muthic Agent, and start conducting attaks on our Windows Server machine. _
 
 _WARNING. Please use Mythic and Linux server to test and practice in a controlled environment. Run and set these up on an environment you own and have permission to tamper with. Also please make sure you are able to correct any vulnerabilities made in this lab, or wipe everything in these servers when finished. It may be wise to have a screenshot of these environments before playing with these._
+
+## Mythic Agent Setup and performing Attack
+_Again, here is our Attack Diagram we will be following:_
+
+<img width="749" height="1347" alt="Attack Diagram drawio" src="https://github.com/user-attachments/assets/c76be57f-045c-4256-a7a6-4a5ebe53daeb" />
+
+- Let's first setup our admin credentials in our Windows Server (target).
+- Log into our Window's Server
+- Let's try assigning a new password for our Administrator account (currently signed in)
+- open Settings > Accounts > Sign-in options, click Password, then "Change"
+- set the Password to somehting simple, like 'Fall2023!'
+- You will need to enter/paste in the current password.
+- It will likely tell you the password is not long or complex enough, so we need to change the password policy.
+- Go to Group Policy in our Windows Server.
+- Go to: Windows Settings > Security Settings > Account Policies > Password Policy > Munimum Password Length.
+- Change from 14 (or whatever it is set as currently) characters to 5 (correct, this is not a secure length) and select OK/Apply.
+
+<img width="1163" height="658" alt="1_password Policy PNG" src="https://github.com/user-attachments/assets/d6ca222e-90bc-47b2-b6a4-157afe837754" />
+
+- Also, disable 'Password must meet complexity requirements'.
+
+<img width="848" height="600" alt="Screenshot 2026-04-19 103958" src="https://github.com/user-attachments/assets/7ec7c509-6232-4b14-9e6a-1da92612481d" />
+
+- Trying changing the admin password now to something simple like 'Fall2023!'. It should not accept that.
+Something simple like this password is still what a lot of organizations still use, unfortunately.
+
+Now, let's log into our sperate, Kali Linux Virtual machine. I will be launching from Virtual Box. 
