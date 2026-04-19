@@ -936,4 +936,30 @@ _Again, here is our Attack Diagram we will be following:_
 - Trying changing the admin password now to something simple like 'Fall2023!'. It should not accept that.
 Something simple like this password is still what a lot of organizations still use, unfortunately.
 
-Now, let's log into our sperate, Kali Linux Virtual machine. I will be launching from Virtual Box. 
+_Now, let's log into our sperate, Kali Linux Virtual machine so we can try to Brute Force the Windows server, then establish an SSH connection and then discver our directory, network, accounts and more from our Windows Server. I will be launching from Virtual Box._
+
+- OpenTerminal
+- We will want to try a wordlist in order to perform a brute force attack. Please refer to the following screenshot of Kali Terminal in order to generate one. We will want to use 'rockyou.txt.gz'. To use that one, we probably need to allow permissions using the 'sudo command'.
+
+<img width="1137" height="906" alt="3_Determinewordlist" src="https://github.com/user-attachments/assets/7fd1a536-ef70-4369-ade1-e4f34ccf4e21" />
+
+_'head -50 rockyou.txt' will show us 50 entries of the rockyou wordlist._
+
+- We may need 'Sudo' command in order to have permission to add a new wordlist into our home directory from rockyou.txt. see below as example.
+
+<img width="900" height="643" alt="4_Rockyoutxtdirectory" src="https://github.com/user-attachments/assets/43832d4d-06f3-488e-b608-c54e1c51033a" />
+
+- Run 'cat MYSOC-wordlist.txt' to view our password list.
+
+<img width="258" height="503" alt="Screenshot 2026-04-19 114050" src="https://github.com/user-attachments/assets/eff0b1ee-786d-446d-ab3d-79aab39cf7b8" />
+
+- then run 'nano MYSOC-wordlist.txt'
+- Enter in our simple password we created (one likely to be in a word list like this; this is to proove and test our concept and attack diagram) at the bottom of the list (Fall2023!).
+- cntrl X to exit and Y to save.
+
+_Next, we will use a program called crowbar_
+
+- Run 'sudo apt-get install -y crowbar' (if that fails saying unable to locate package crowbar, you may need to update your repositories for your Kali-Linux machine ; sudo apt-get update && sudo apt-get upgrade -y)
+
+<img width="751" height="251" alt="Screenshot 2026-04-19 114755" src="https://github.com/user-attachments/assets/da5f581f-6a5a-4197-a8aa-358569c78087" />
+
