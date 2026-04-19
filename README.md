@@ -959,7 +959,70 @@ _'head -50 rockyou.txt' will show us 50 entries of the rockyou wordlist._
 
 _Next, we will use a program called crowbar_
 
-- Run 'sudo apt-get install -y crowbar' (if that fails saying unable to locate package crowbar, you may need to update your repositories for your Kali-Linux machine ; sudo apt-get update && sudo apt-get upgrade -y)
+- Run 'sudo apt-get install -y crowbar' (if that fails saying unable to locate package crowbar, you may need to update your repositories for your Kali-Linux machine ; sudo apt-get update && sudo apt-get upgrade -y. 'sudo' apt install gnupg' will also be required.)
 
 <img width="751" height="251" alt="Screenshot 2026-04-19 114755" src="https://github.com/user-attachments/assets/da5f581f-6a5a-4197-a8aa-358569c78087" />
 
+- tpye in Crowbar -h to review it.
+
+<img width="890" height="589" alt="Screenshot 2026-04-19 121248" src="https://github.com/user-attachments/assets/8b3dcbd1-6fa7-4f03-b168-3a74444eabb6" />
+
+_We will be using crowbar to perform a brute force attack over to our Windows Server (First line in our attack diagram)._
+
+Create a target.txt file
+
+<img width="415" height="115" alt="Screenshot 2026-04-19 121655" src="https://github.com/user-attachments/assets/1a6f31c5-ce77-4b0c-8910-4fd907287e9e" />
+
+- We will want to use crowbar and specify WHERE we are using it. In this case, it will be our target Windows Server machine.
+- We want to use the tool, using the RDP service as an Administrator user account, using our saved worlist containing a bunch of different passwords, including the one we actually have for our Administrator password for Windows Server, and directing this login/bruteforce attack to our Windows Server using it's IP address.
+
+<img width="629" height="64" alt="Screenshot 2026-04-19 122534" src="https://github.com/user-attachments/assets/66c642d2-8421-440e-84c3-06bff9d02de1" />
+
+- Once you have that, hit Enter to perform the attack.
+
+_Ope. We'll have to install an RDP software onto our Kali Linux system._
+
+<img width="520" height="49" alt="Screenshot 2026-04-19 122922" src="https://github.com/user-attachments/assets/d4148317-f1b6-4325-bf95-27d84597dd97" />
+
+- If you do not have it, Run the following command to install the latest version available in the Kali Linux Tools repository.
+- 'sudo apt install freerdp3-x11'
+
+<img width="1508" height="373" alt="Screenshot 2026-04-19 123250" src="https://github.com/user-attachments/assets/502526f8-ec09-42cd-b4e3-daa7fdc8874f" />
+
+- Enter Y and hit Enter
+
+- NOW, when we try to run crowbar again, it simply tells us it tried to connect, but not getting any results.
+
+<img width="364" height="87" alt="Screenshot 2026-04-19 123809" src="https://github.com/user-attachments/assets/ac3281ca-9450-4ef7-abb1-2dd515948e02" />
+
+- We should now be able to use our xfreerdp to connect to that Windows server via RDP.
+
+<img width="644" height="36" alt="Screenshot 2026-04-19 125446" src="https://github.com/user-attachments/assets/e017cf1d-77e7-4ca4-b1f1-5b0e25b27813" />
+
+- It will ask us if we trust the certificate above? Will select Y for yes.
+
+_We are now RDP'd into our Windows Server target machine._
+
+<img width="1365" height="796" alt="Screenshot 2026-04-19 125721" src="https://github.com/user-attachments/assets/0e37ac8f-d147-44fd-ba1a-f3c80d4c5586" />
+
+**_We are now officialy fone with Phase 1 and in Phase 2 in our Attack diagram_**
+_We can use the following commands to gather information: whoami, ipconfig, net user, net group._
+
+- Open up Command prompt within our RDP session
+- We will get the username we are logged in as, the network, mac address, IP information, and user accounts under the Windows Server.
+
+- running net user administrator gives us more information about that user and login and password policies, as well as what group this username is apart of. In this case, it is apart of the Administrators group.
+
+<img width="753" height="501" alt="Screenshot 2026-04-19 130713" src="https://github.com/user-attachments/assets/e3caacde-ec59-4d63-9299-93418e0e2630" />
+
+**_We have Completed Phase number 2_**
+
+_In Phase 3, we will be disabling Windows Defender_
+- in the RDP session, Go to Windows Defender > Virus & Threat protection and disable everything in there, especially 'Real-time protection'.
+
+<img width="865" height="644" alt="Screenshot 2026-04-19 131559" src="https://github.com/user-attachments/assets/b6484de6-c394-4fcb-9996-d677182dac57" />
+
+_**Phase 3 Complete ; Beginning Phase 4, Execution**_
+We will be bulding our Mythic Agent.
+- Log into our Mythic web GUI from before.
+- 
