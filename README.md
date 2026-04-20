@@ -1079,3 +1079,9 @@ Select Download here after payload is built
 
 <img width="1186" height="302" alt="Screenshot 2026-04-19 141613" src="https://github.com/user-attachments/assets/f96290bd-cf9d-4aca-bab2-eb71a7a612f4" />
 
+- run 'python3 -m http.server 9999'
+- It will say 'Serving HTTP on 0.0.0.0 port 9999 (http://0.0.0.0:9999/) ...'
+
+**_Now, go back to our RDP session from our external Kali-Linux machine_**
+
+- 
