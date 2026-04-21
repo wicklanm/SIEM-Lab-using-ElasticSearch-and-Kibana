@@ -1084,4 +1084,26 @@ Select Download here after payload is built
 
 **_Now, go back to our RDP session from our external Kali-Linux machine_**
 
-- 
+- We want to run the following (IP address will be different for YOUR Mythic Server:
+
+<img width="1006" height="85" alt="6_Successful_InvokeWebRequest_for_payload_onto_Windows" src="https://github.com/user-attachments/assets/72e5b8d6-8d72-43bf-81f0-8b064636aa04" />
+
+- We see have the payload now in our target Windows machine:
+
+<img width="472" height="128" alt="We have our mythcipayloadfile" src="https://github.com/user-attachments/assets/b45d690b-95da-4984-ae45-978033be0eb4" />
+
+- We can also confirm the payload is in Windows by running 'netstat -anob'
+
+<img width="689" height="47" alt="Screenshot 2026-04-20 204442" src="https://github.com/user-attachments/assets/76b2a3f2-0ba8-4d0b-ab3a-01d38fb72be0" />
+
+_Go back to our Mythic Dashbaord, and click on the phone icon:_
+
+<img width="1885" height="288" alt="Screenshot 2026-04-20 204806" src="https://github.com/user-attachments/assets/e7258d39-253f-4bc1-adab-307b0fc298d7" />
+
+- We can now run commands FROM our Mythic Dashboard Callback here to run any command line essentially that we want, even downloading files, like this:
+
+<img width="1877" height="907" alt="Screenshot 2026-04-20 210953" src="https://github.com/user-attachments/assets/0bed4dac-500e-4e86-8fb6-d4729b91d347" />
+
+
+We now have our callback from our target Windows Server
+
