@@ -1180,3 +1180,56 @@ Give a name and set as critical
 
 - Set a run time and additional look-back time of 5 minutes each
 - Create and Enable Rule
+
+<img width="1255" height="807" alt="Screenshot 2026-04-21 202151" src="https://github.com/user-attachments/assets/49df90e4-99da-4b84-be9b-916414bb25c3" />
+
+Now we're gonna use this query:
+
+<img width="978" height="759" alt="Screenshot 2026-04-21 204716" src="https://github.com/user-attachments/assets/94a898b4-823f-41e0-b730-cdd8e434c3e0" />
+
+update our query again, and use this field in the rule:
+
+<img width="1671" height="813" alt="Screenshot 2026-04-21 205037" src="https://github.com/user-attachments/assets/d2217451-8b8a-476a-a946-3b26f2e24fc4" />
+
+After playing around with the search, we have determined our queries we will be using in our dashboard:
+
+- Event ID: 1 - Process Creates - powershell, cmd, rundll32
+event.code: 1 and event.provider: Microsoft-Windows-Sysmon and (powershell or cmd or rundll32)
+
+- Event ID: 3 - Network Connections (External) any processes INITIATING a network connection outbound
+
+- Event.code: 3 and event.provider: Microsoft-Windows-Sysmon and winlog.event_data.Initiated: true
+
+- Event ID: 5001
+- event.code: 5001 and event.provider: Microsoft-Windows-Windows Defender
+
+## We are ready to create our dashbard now that we know our data and queries to use.
+
+Paste this query after selecting to create a new dashboard and add a visualization:
+- event.code: 1 and event.provider: Microsoft-Windows-Sysmon and (powershell or cmd or rundll32)
+- Add the timestampt field. This will add a table in the dashboard.
+- Let's add the fields we listed previously:
+- host.hostname
+- message
+- winlog.event_data.CommandLine
+- winlog.event_data.Image
+- winlog.event_data.ParentCommandLine
+- winlog.event_data.ParentImage
+- winlog.event_data.ProcessGuid
+- winlog.event_data.User
+
+- Change the name and make the value limit be 999, and make sure they are not grouped.
+
+<img width="1906" height="864" alt="Screenshot 2026-04-21 213600" src="https://github.com/user-attachments/assets/17afda9a-5a07-457a-926b-0ab6326a96af" />
+
+- Select save and close. Give a name.
+- Review our Table in our Dashboard
+
+<img width="1904" height="496" alt="Screenshot 2026-04-21 214152" src="https://github.com/user-attachments/assets/18d86e67-cb86-401c-b5a7-0ade08d7e6b8" />
+
+- We will make another table or graph and use:
+- event.code: 3 and event.provider: Microsoft-Windows-Sysmon and winlog.event_data.Initiated: true
+
+- we'll use the following fields:
+- <img width="322" height="104" alt="Screenshot 2026-04-21 215455" src="https://github.com/user-attachments/assets/60a78095-11cd-4d6e-a2fc-11c9760cd41f" />
+
