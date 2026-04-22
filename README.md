@@ -1233,3 +1233,11 @@ Paste this query after selecting to create a new dashboard and add a visualizati
 - we'll use the following fields:
 - <img width="322" height="104" alt="Screenshot 2026-04-21 215455" src="https://github.com/user-attachments/assets/60a78095-11cd-4d6e-a2fc-11c9760cd41f" />
 
+- Save table
+
+- Make another table and use the following query:
+- event.code: 5001 and event.provider: Microsoft-Windows-Windows Defender
+- Give appropriate names and save Dashboard.
+
+**Unfortunately for me, I think I have ran into another bug with version 9.3.2, so the last 2 tables are not showing data, despite them showing data while I edit them. I may have to come up with a second system to view these.
+
