@@ -1241,8 +1241,8 @@ Paste this query after selecting to create a new dashboard and add a visualizati
 
 **Unfortunately for me, I think I have ran into another bug with version 9.3.2, so the last 2 tables are not showing data, despite them showing data while I edit them. I may have to come up with a second system to view these.
 
-# Ticketing System
-## What is it?
+## Ticketing System
+### What is it?
 Can be an alert, customer compaint, a troubleshooting request, or any request really.
 
 Aufit trail and accountability
@@ -1252,13 +1252,25 @@ This references our AAA:
 - Authorization
 - Accounting
 
-## OSTicket is the Ticketing System We Will be Using
+### oSTicket is the Ticketing System We Will be Using
 
 Customize fields
 Create Ticket Filters for routeing purposes
 Assign and Transfer Tickets
 Send SLA (Service Level Agreements)
 
-## Will use Free Open Source option
+### Will use Free Open Source option
 - We have free email Integration supported, but that's it
+
+## Setup and Configure oSTicket
+
+### Deploying new server for ticketing system
+_Start by Deploying a new server on VULTR (or whatever Virtual platform you are using._
+- selecting shared CPU
+- select our location
+- Will choose 55 GB at 1 CPU option (under Cloud Compute)
+- operating system will be Windows Standard
+- We do want to select VPC (Virtual Private Cloud). Make sure to select our existing Subnet for our Environment we made at the beginning of this lab.
+- I am naming my hostname to be 'MYSOC-osTicket'
+- Select Deploy
 
