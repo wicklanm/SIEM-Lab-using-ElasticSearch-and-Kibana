@@ -1274,3 +1274,8 @@ _Start by Deploying a new server on VULTR (or whatever Virtual platform you are 
 - I am naming my hostname to be 'MYSOC-osTicket'
 - Select Deploy
 
+- After deployed, select view console for new server to make sure it comes up. It may take a few minutes.
+- We will want to make sure Remote Desktop is turned on in settings on this new server.
+- You may also need to enable the file and printer sharing ipv4 for incoming rules in Firewall
+- Now, however, we can just use RDP to remote into it. RDP using our IP address for this ostecket server
+- 
