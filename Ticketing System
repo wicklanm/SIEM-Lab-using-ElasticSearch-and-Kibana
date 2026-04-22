@@ -1,0 +1,20 @@
+# Ticketing System
+## What is it?
+Can be an alert, customer compaint, a troubleshooting request, or any request really.
+
+Aufit trail and accountability
+
+This references our AAA:
+- Authentication
+- Authorization
+- Accounting
+
+## OSTicket
+
+Customize fields
+Create Ticket Filters for routeing purposes
+Assign and Transfer Tickets
+Send SLA (Service Level Agreements)
+
+## Will use Free Open Source
+- We have free email Integration supported, but that's it
