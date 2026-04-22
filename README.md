@@ -1241,3 +1241,24 @@ Paste this query after selecting to create a new dashboard and add a visualizati
 
 **Unfortunately for me, I think I have ran into another bug with version 9.3.2, so the last 2 tables are not showing data, despite them showing data while I edit them. I may have to come up with a second system to view these.
 
+# Ticketing System
+## What is it?
+Can be an alert, customer compaint, a troubleshooting request, or any request really.
+
+Aufit trail and accountability
+
+This references our AAA:
+- Authentication
+- Authorization
+- Accounting
+
+## OSTicket is the Ticketing System We Will be Using
+
+Customize fields
+Create Ticket Filters for routeing purposes
+Assign and Transfer Tickets
+Send SLA (Service Level Agreements)
+
+## Will use Free Open Source option
+- We have free email Integration supported, but that's it
+
