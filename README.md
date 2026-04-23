@@ -1591,7 +1591,7 @@ From here you can:
 
 ### Next Steps
 
-With osTicket running, the next step in the MyDFIR 30-Day SOC Challenge is **Day 25: Integrating osTicket with Elastic/Kibana**, where you'll:
+With osTicket running, the next step to integrate osTicket with Elastic/Kibana**, where you'll:
 - Generate an **API key** inside osTicket
 - Configure an **Elastic webhook connector** to automatically create tickets from SIEM alerts
 - Test end-to-end ticket creation from a brute-force detection rule
@@ -1600,13 +1600,11 @@ With osTicket running, the next step in the MyDFIR 30-Day SOC Challenge is **Day
 
 ### Resources
 
-- 📺 [Original YouTube Tutorial – MyDFIR Day 24](https://www.youtube.com/watch?v=xgxQuLL33oU)
 - 🌐 [osTicket Official Site](https://osticket.com)
 - 📦 [XAMPP Download](https://www.apachefriends.org/download.html)
-- ☁️ [Vultr Free Credits ($300)](https://www.vultr.com/?ref=9632889-9J)
 - 📖 [osTicket API Docs (for Day 25)](https://github.com/osTicket/osTicket/blob/develop/setup/doc/api/tickets.md)
 
 ---
 
-*Part of the [MyDFIR 30-Day SOC Analyst Challenge](https://www.youtube.com/@MyDFIR) series.*
+## Integrating OS with Elastic and Kibana
 
