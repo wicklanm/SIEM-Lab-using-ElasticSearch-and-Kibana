@@ -1606,7 +1606,7 @@ With osTicket running, the next step to integrate osTicket with Elastic/Kibana**
 
 ---
 
-## Day 25: osTicket + ELK Integration
+## osTicket + ELK Integration
 > **MyDFIR 30-Day SOC Analyst Challenge**  
 > Based on: [YouTube Tutorial — Day 25](https://www.youtube.com/watch?v=P9YxutqWAF0&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=26)
 
