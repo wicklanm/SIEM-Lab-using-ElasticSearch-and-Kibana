@@ -1,10 +1,6 @@
-# Day 28 — Investigating a Mythic C2 Agent
-> **MyDFIR 30-Day SOC Analyst Challenge | Day 28 of 30**  
-> 🎥 [Watch the original video](https://www.youtube.com/watch?v=b11TuDx_CjU&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=30)
+## Day 28 — Investigating a Mythic C2 Agent
 
----
-
-## 📋 Summary
+### 📋 Summary
 
 This is the most advanced investigation in the challenge so far. Day 28 shifts from reactive alert triage (brute force) to a **deeper post-compromise investigation** — analyzing telemetry from a **Mythic C2 (Command and Control) agent** that was planted on your Windows server during the attack simulation in Day 20.
 
@@ -23,7 +19,7 @@ You'll learn how to detect a C2 agent both when you know its name and when you d
 
 ---
 
-## 🛠️ Prerequisites
+### 🛠️ Prerequisites
 
 | Component | Purpose |
 |-----------|---------|
@@ -39,7 +35,7 @@ You'll learn how to detect a C2 agent both when you know its name and when you d
 
 ---
 
-## 🧠 Background: What Is a C2 Framework?
+### 🧠 Background: What Is a C2 Framework?
 
 A **Command and Control (C2) framework** is a tool used by attackers to remotely control compromised machines after gaining initial access. The compromised machine runs a lightweight **agent** that periodically calls back ("beacons") to the attacker's C2 server to receive instructions.
 
@@ -57,11 +53,11 @@ A **Command and Control (C2) framework** is a tool used by attackers to remotely
 
 ---
 
-## 🔍 Part 1 — Investigating When You Know the Agent Name
+### 🔍 Part 1 — Investigating When You Know the Agent Name
 
 In a lab setting, you may already know the name of the malicious executable from a prior alert or incident report. Use it as your starting point.
 
-### Step 1: Search for the Agent in Kibana
+#### Step 1: Search for the Agent in Kibana
 
 1. Log in to Kibana and go to **Analytics → Discover** (or use the search bar in the Security section).
 2. Search for the known agent filename:
@@ -85,11 +81,11 @@ process.name : "svchost-yourname.exe"
 
 ---
 
-## 🔍 Part 2 — Hunting for C2 When You Don't Know the Agent Name
+### 🔍 Part 2 — Hunting for C2 When You Don't Know the Agent Name
 
 In real-world investigations, you won't always know the agent's filename in advance. Here are two effective methods to discover it.
 
-### Method A: Suspicious Activity Dashboard
+#### Method A: Suspicious Activity Dashboard
 
 1. In Kibana, open the **Suspicious Activity dashboard** you built in a prior day.
 2. Change the time range to the last **30 days** to capture all historical activity.
@@ -105,7 +101,7 @@ Once you identify a suspicious process and destination IP, use those as your inv
 
 ---
 
-### Method B: Network Telemetry Query
+#### Method B: Network Telemetry Query
 
 Search directly for outbound network connections (Sysmon Event ID 3) and look for unusual destinations:
 
@@ -119,11 +115,11 @@ Add `winlog.event_data.DestinationIp`, `process.name`, and `process.executable` 
 
 ---
 
-## 🔍 Part 3 — Building the Attack Timeline with Process GUIDs
+### 🔍 Part 3 — Building the Attack Timeline with Process GUIDs
 
 The **Process GUID** is the most powerful pivot point available in Sysmon telemetry. Unlike a PID (which can be reused by the OS), a Process GUID uniquely identifies a specific process instance across its entire lifetime.
 
-### Step 1: Find the First Suspicious Network Connection
+#### Step 1: Find the First Suspicious Network Connection
 
 Search for outbound connections to the C2 server's IP:
 
@@ -137,7 +133,7 @@ event.code : "3" and winlog.event_data.DestinationIp : "<C2-server-IP>"
 
 ---
 
-### Step 2: Pivot Using the Process GUID
+#### Step 2: Pivot Using the Process GUID
 
 Wrap the GUID in quotes and search all events for that specific process:
 
@@ -161,7 +157,7 @@ Sort results **oldest to newest**. You should now see the full lifecycle of this
 
 ---
 
-### Step 3: Pivot to the Agent's Own Process GUID
+#### Step 3: Pivot to the Agent's Own Process GUID
 
 Once the agent starts, its **ProcessGuid becomes the ParentProcessGuid** for everything it spawns. Search for the agent's new GUID to trace its post-execution activity:
 
@@ -177,7 +173,7 @@ Here you'll find:
 
 ---
 
-### Step 4: Extract the File Hash
+#### Step 4: Extract the File Hash
 
 From the **Sysmon Event ID 29** (Executable File Detected) log, extract the file hash:
 
@@ -192,7 +188,7 @@ Use these hashes to look up the file on threat intelligence platforms:
 
 ---
 
-### Step 5: Look for Evidence of Data Access
+#### Step 5: Look for Evidence of Data Access
 
 Search for file access events around the time of the compromise. In particular, look for sensitive files being opened:
 
@@ -204,7 +200,7 @@ In the challenge simulation, an attacker commonly opens a `passwords.txt` file t
 
 ---
 
-### Step 6: Document Your Timeline
+#### Step 6: Document Your Timeline
 
 As you investigate, build a written timeline of events. Here's an example format:
 
@@ -223,11 +219,11 @@ A documented timeline like this is what you would include in an incident report 
 
 ---
 
-## 🛡️ Part 4 — Creating a New Detection Rule for C2 Shell Activity
+### 🛡️ Part 4 — Creating a New Detection Rule for C2 Shell Activity
 
 Beyond the existing Mythic agent detection rule, you can create a second, more targeted rule that fires whenever the C2 executes shell commands — even if the agent itself is not explicitly identified.
 
-### Step 1: Build the Query
+#### Step 1: Build the Query
 
 The following query targets `cmd.exe` processes that were spawned by a non-system user (i.e., an interactive session, not a Windows service):
 
@@ -237,7 +233,7 @@ event.code : "1" and winlog.event_data.OriginalFileName : "Cmd.Exe" and not winl
 
 Verify the query returns the expected shell command events before creating the rule.
 
-### Step 2: Create the Detection Rule
+#### Step 2: Create the Detection Rule
 
 1. In Kibana, go to **Security → Rules → Detection Rules (SIEM) → Create New Rule**.
 2. Select **Custom Query** as the rule type.
@@ -252,7 +248,7 @@ Verify the query returns the expected shell command events before creating the r
 7. Set the rule to run **every 1 minute**
 8. Add a **Webhook Action** pointed at your osTicket connector with the same XML body used in Days 26–27.
 
-### Step 3: Add Custom Highlighted Fields
+#### Step 3: Add Custom Highlighted Fields
 
 Custom Highlighted Fields make the most important context visible at the top of each alert without having to expand every field manually.
 
@@ -267,7 +263,7 @@ Custom Highlighted Fields make the most important context visible at the top of 
 
 Now when an alert fires, those fields appear prominently at the top of the alert detail view.
 
-### Step 4: Test the Rule
+#### Step 4: Test the Rule
 
 1. Log in to your **Mythic server** and navigate to **Callbacks**.
 2. Open your active agent session and run:
@@ -279,7 +275,7 @@ Now when an alert fires, those fields appear prominently at the top of the alert
 
 ---
 
-## 🎫 Part 5 — Connecting the Existing Mythic C2 Rule to osTicket
+### 🎫 Part 5 — Connecting the Existing Mythic C2 Rule to osTicket
 
 If you haven't already wired your pre-existing Mythic detection rule (created in Day 20) to osTicket, do so now using the same process as Days 26–27:
 
@@ -312,7 +308,7 @@ If you haven't already wired your pre-existing Mythic detection rule (created in
 
 ---
 
-## ✅ Summary of Key Takeaways
+### ✅ Summary of Key Takeaways
 
 | Topic | Key Point |
 |-------|-----------|
@@ -328,7 +324,7 @@ If you haven't already wired your pre-existing Mythic detection rule (created in
 
 ---
 
-## 🔑 Key Sysmon Event IDs Reference
+### 🔑 Key Sysmon Event IDs Reference
 
 | Event ID | Name | Use in This Investigation |
 |----------|------|--------------------------|
@@ -337,20 +333,6 @@ If you haven't already wired your pre-existing Mythic detection rule (created in
 | 11 | File Create | Confirm agent was written to disk |
 | 29 | File Executable Detected | Extract SHA1/SHA256 hash of the agent |
 
----
-
-## 🔗 Resources
-
-- 📺 [Original Video — MyDFIR Day 28](https://www.youtube.com/watch?v=b11TuDx_CjU)
-- 📺 [Day 20 — Mythic C2 Setup](https://www.youtube.com/playlist?list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6) *(prerequisite — where the agent was deployed)*
-- 📖 [Mythic C2 Framework (GitHub)](https://github.com/its-a-feature/Mythic)
-- 📖 [Sysmon Event ID Reference — Microsoft](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
-- 🔎 [RITA — Real Intelligence Threat Analytics](https://github.com/activecm/rita)
-- 🔎 [VirusTotal](https://www.virustotal.com)
-- 🔎 [MalwareBazaar](https://bazaar.abuse.ch)
-- 📖 [Elastic Rule Action Variables](https://www.elastic.co/guide/en/security/current/rules-ui-create.html#rule-action-variables)
-- 🌐 [MyDFIR SOC Community](https://www.skool.com/mydfir)
-
----
-
 > *Part of the MyDFIR 30-Day SOC Analyst Challenge. This tutorial is based on Day 28 content and is intended for educational purposes only. Mythic C2 and similar tools should only be used in authorized lab environments.*
+
+
