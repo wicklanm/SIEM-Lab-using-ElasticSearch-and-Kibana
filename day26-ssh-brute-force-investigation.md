@@ -1,6 +1,4 @@
 # Day 26 — Investigating an SSH Brute Force Attack
-> **MyDFIR 30-Day SOC Analyst Challenge | Day 26 of 30**  
-> 🎥 [Watch the original video](https://www.youtube.com/watch?v=sXQ1hsAFX7U&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=27)
 
 ---
 
