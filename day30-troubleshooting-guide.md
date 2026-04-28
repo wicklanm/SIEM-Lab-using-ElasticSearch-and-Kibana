@@ -1,10 +1,7 @@
-# Day 30 — Troubleshooting Common Errors in the SOC Lab
-> **MyDFIR 30-Day SOC Analyst Challenge | Day 30 of 30**  
-> 🎥 [Watch the original video](https://www.youtube.com/watch?v=o-eR-tJlbqE&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=31)
-
+## Day 30 — Troubleshooting Common Errors in the SOC Lab
 ---
 
-## 📋 Summary
+### 📋 Summary
 
 🎉 **Congratulations on reaching Day 30!** This final video is a troubleshooting reference — a collection of the most common errors encountered throughout the challenge, with step-by-step fixes for each. If something broke at any point during Days 1–29 and you couldn't move forward, this is where to look.
 
@@ -20,7 +17,7 @@ The video covers **six specific errors** that trip up most participants, spannin
 
 ---
 
-## 🛠️ General Troubleshooting Principles
+### 🛠️ General Troubleshooting Principles
 
 Before diving into specific errors, keep these principles in mind. They apply to nearly every problem you'll encounter in this lab:
 
@@ -41,13 +38,13 @@ Elasticsearch and Kibana can take 30–90 seconds to be fully ready after a rest
 
 ---
 
-## ❌ Error 1 — Kibana Connection Error
+### ❌ Error 1 — Kibana Connection Error
 > **Video timestamp: 00:00**
 
-### Symptom
+#### Symptom
 You navigate to `http://<ELK-server-IP>:5601` in your browser and receive a connection refused, timeout, or "site can't be reached" error.
 
-### Causes and Fixes
+#### Causes and Fixes
 
 **Cause A: Kibana service is not running**
 
@@ -150,13 +147,13 @@ systemctl restart kibana.service
 
 ---
 
-## ❌ Error 2 — Fleet Server Failed: Timed Out
+### ❌ Error 2 — Fleet Server Failed: Timed Out
 > **Video timestamp: 03:08**
 
-### Symptom
+#### Symptom
 When enrolling a Fleet Server using the setup command in Kibana, the process hangs and eventually returns a timeout error. The Fleet Server never appears as healthy in **Management → Fleet → Agents**.
 
-### Causes and Fixes
+#### Causes and Fixes
 
 **Cause A: Elasticsearch is not reachable from the Fleet Server**
 
@@ -210,10 +207,10 @@ If this URL is wrong (e.g., still set to a placeholder or old IP), update it and
 
 ---
 
-## ❌ Error 3 — Fail to Execute Request to Fleet Server
+### ❌ Error 3 — Fail to Execute Request to Fleet Server
 > **Video timestamp: 04:46**
 
-### Symptom
+#### Symptom
 When running the Elastic Agent enrollment command on a target host (Windows Server or Ubuntu Server), you receive an error like:
 
 ```
@@ -222,7 +219,7 @@ Error: fail to enroll: fail to execute request to fleet-server: ...
 
 The agent cannot reach the Fleet Server at all.
 
-### Causes and Fixes
+#### Causes and Fixes
 
 **Cause A: Network connectivity between the agent host and Fleet Server is blocked**
 
@@ -272,10 +269,10 @@ A common mistake is accidentally using the ELK server's IP (port 9200 or 5601) i
 
 ---
 
-## ❌ Error 4 — x509: Certificate Signed by Unknown Authority
+### ❌ Error 4 — x509: Certificate Signed by Unknown Authority
 > **Video timestamp: 08:57**
 
-### Symptom
+#### Symptom
 When running the Elastic Agent enrollment command, the process fails with:
 
 ```
@@ -284,13 +281,13 @@ x509: certificate signed by unknown authority
 Error: enroll command failed with exit code: 1
 ```
 
-### Explanation
+#### Explanation
 
 This error occurs because the Fleet Server uses a **self-signed TLS certificate** (automatically generated during setup in this lab environment). The Elastic Agent on the enrolling host does not recognize this certificate as trusted because it wasn't issued by a known Certificate Authority (CA).
 
 This is expected behavior in a self-managed lab — you are not using a publicly-trusted certificate. The fix is to explicitly tell the agent to accept the self-signed certificate.
 
-### Fix: Add the `--insecure` flag
+#### Fix: Add the `--insecure` flag
 
 Append `--insecure` to the end of your enrollment command:
 
@@ -362,10 +359,10 @@ Restart-Service elastic-agent
 
 ---
 
-## ❌ Error 5 — Cannot Connect: Invalid Settings (osTicket Webhook Connector)
+### ❌ Error 5 — Cannot Connect: Invalid Settings (osTicket Webhook Connector)
 > **Video timestamp: 11:28**
 
-### Symptom
+#### Symptom
 When testing your osTicket webhook connector in Kibana (**Stack Management → Connectors**), clicking **Test** returns an error like:
 
 ```
@@ -378,7 +375,7 @@ Connection refused
 
 No tickets are being created in osTicket even when alerts fire.
 
-### Causes and Fixes
+#### Causes and Fixes
 
 **Cause A: osTicket server is not running**
 
@@ -453,10 +450,10 @@ Confirm `DBHOST`, `DBNAME`, `DBUSER`, and `DBPASS` match your MySQL setup.
 
 ---
 
-## ❌ Error 6 — Error Calling Webhook: Request Failed
+### ❌ Error 6 — Error Calling Webhook: Request Failed
 > **Video timestamp: 17:46**
 
-### Symptom
+#### Symptom
 The osTicket connector tests successfully, but when an Elastic alert fires, the action history shows:
 
 ```
@@ -465,7 +462,7 @@ Error calling webhook: request failed
 
 Tickets are not being created in osTicket.
 
-### Causes and Fixes
+#### Causes and Fixes
 
 **Cause A: Malformed XML in the request body**
 
@@ -545,7 +542,7 @@ Even if the connector test passes from the Kibana UI, the actual alert-triggered
 
 ---
 
-## 🔧 Quick-Reference Diagnostic Commands
+### 🔧 Quick-Reference Diagnostic Commands
 
 Use these commands on the appropriate servers when troubleshooting:
 
@@ -582,7 +579,7 @@ tail -f /var/log/apache2/access.log      # Incoming requests (look for POST to /
 
 ---
 
-## 🔑 Port Reference Card
+### 🔑 Port Reference Card
 
 Keep this handy when diagnosing connectivity issues between components:
 
@@ -598,7 +595,7 @@ Keep this handy when diagnosing connectivity issues between components:
 
 ---
 
-## ✅ Summary of Errors and Fixes
+### ✅ Summary of Errors and Fixes
 
 | Error | Root Cause | Fix |
 |-------|-----------|-----|
@@ -656,14 +653,11 @@ Over 30 days, you have deployed and configured a fully operational mini SOC envi
 
 ## 🔗 Resources
 
-- 📺 [Original Video — MyDFIR Day 30](https://www.youtube.com/watch?v=o-eR-tJlbqE)
 - 📖 [Elastic Fleet Troubleshooting — Official Docs](https://www.elastic.co/docs/troubleshoot/ingest/fleet/common-problems)
 - 📖 [Elastic Agent x509 Certificate Error](https://www.elastic.co/docs/troubleshoot/ingest/fleet/common-problems#agent-enrollment-x509)
 - 📖 [osTicket API Documentation](https://github.com/osTicket/osTicket/blob/develop/setup/doc/api/tickets.md)
 - 📖 [Kibana Configuration Reference](https://www.elastic.co/guide/en/kibana/current/settings.html)
-- 🌐 [MyDFIR SOC Community (Skool)](https://www.skool.com/mydfir)
-- 🎓 [MyDFIR SOC Analyst Course](https://academy.mydfir.com/p/soc)
-
 ---
 
 > *Part of the MyDFIR 30-Day SOC Analyst Challenge. This is Day 30 — the final day. Well done for completing the challenge!*
+
