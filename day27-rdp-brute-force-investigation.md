@@ -1,10 +1,8 @@
-# Day 27 — Investigating an RDP Brute Force Attack
-> **MyDFIR 30-Day SOC Analyst Challenge | Day 27 of 30**  
-> 🎥 [Watch the original video](https://www.youtube.com/watch?v=l9KA6dPdOs8&list=PLG6KGSNK4PuBb0OjyDIdACZnb8AoNBeq6&index=29)
+## Day 27 — Investigating an RDP Brute Force Attack
 
 ---
 
-## 📋 Summary
+### 📋 Summary
 
 This tutorial covers how a SOC Analyst investigates an **RDP (Remote Desktop Protocol) brute force attack** using the **Elastic SIEM (Kibana)**. The core investigation methodology is the same as SSH brute force (covered in Day 26), but the data sources, Windows Event IDs, and log fields differ significantly since RDP targets a **Windows server** rather than a Linux host.
 
@@ -20,7 +18,7 @@ By the end of this tutorial you will know how to:
 
 ---
 
-## 🛠️ Prerequisites
+### 🛠️ Prerequisites
 
 | Component | Purpose |
 |-----------|---------|
@@ -34,7 +32,7 @@ By the end of this tutorial you will know how to:
 
 ---
 
-## 🔑 Key Windows Event IDs for RDP Investigation
+### 🔑 Key Windows Event IDs for RDP Investigation
 
 Understanding these Event IDs is essential before diving into the investigation:
 
@@ -49,9 +47,9 @@ Understanding these Event IDs is essential before diving into the investigation:
 
 ---
 
-## 🔍 Part 1 — Investigating the RDP Brute Force Alert
+### 🔍 Part 1 — Investigating the RDP Brute Force Alert
 
-### Step 1: Navigate to Alerts in Kibana
+#### Step 1: Navigate to Alerts in Kibana
 
 1. Log in to your **Kibana** web interface.
 2. Click the **hamburger menu (☰)** in the top-left corner.
@@ -62,7 +60,7 @@ You may see significantly more RDP alerts than SSH alerts — RDP is one of the 
 
 ---
 
-### Step 2: Expand an Alert and Identify Key Fields
+#### Step 2: Expand an Alert and Identify Key Fields
 
 Click on one of the RDP brute force alerts to expand its details. Note the following fields:
 
@@ -79,13 +77,13 @@ Click on one of the RDP brute force alerts to expand its details. Note the follo
 
 ---
 
-### Step 3: Apply the 4-Question Investigation Framework
+#### Step 3: Apply the 4-Question Investigation Framework
 
 Use this same framework from Day 26, now applied to RDP-specific data.
 
 ---
 
-#### ❓ Question 1 — Is this IP known for brute force activity?
+##### ❓ Question 1 — Is this IP known for brute force activity?
 
 **Tool 1: [AbuseIPDB](https://www.abuseipdb.com)**
 1. Copy the `source.ip` from the alert.
@@ -108,7 +106,7 @@ Use this same framework from Day 26, now applied to RDP-specific data.
 
 ---
 
-#### ❓ Question 2 — Were any other user accounts targeted by this IP?
+##### ❓ Question 2 — Were any other user accounts targeted by this IP?
 
 Search Kibana for all failed logon events from the attacker's IP to see the full scope of targeted accounts:
 
@@ -127,7 +125,7 @@ Add `user.name` to your selected columns to see which accounts were attempted. C
 
 ---
 
-#### ❓ Question 3 — Were any login attempts successful?
+##### ❓ Question 3 — Were any login attempts successful?
 
 Search for successful RDP logons from the attacker's IP using Windows Event ID `4624`:
 
@@ -146,7 +144,7 @@ source.ip : "<attacker-IP>" and event.code : "4624" and winlog.event_data.LogonT
 
 ---
 
-#### ❓ Question 4 — If successful, what happened after the login?
+##### ❓ Question 4 — If successful, what happened after the login?
 
 This is the most critical part of the investigation. If you find a successful logon:
 
@@ -191,7 +189,7 @@ During a session, Windows may generate new Logon IDs for spawned processes or pr
 
 ---
 
-## 🔄 RDP vs SSH — Key Investigation Differences
+### 🔄 RDP vs SSH — Key Investigation Differences
 
 | Aspect | SSH (Day 26) | RDP (Day 27) |
 |--------|-------------|-------------|
@@ -206,11 +204,11 @@ During a session, Windows may generate new Logon IDs for spawned processes or pr
 
 ---
 
-## 🎫 Part 2 — Configuring osTicket for RDP Alerts
+### 🎫 Part 2 — Configuring osTicket for RDP Alerts
 
 If you completed the osTicket webhook setup in Day 26 for SSH alerts, the RDP configuration follows the exact same process — you're simply applying it to a different rule.
 
-### Step 1: Edit the RDP Brute Force Detection Rule
+#### Step 1: Edit the RDP Brute Force Detection Rule
 
 1. In Kibana, go to:  
    **Security → Rules → Detection Rules (SIEM)**
@@ -225,7 +223,7 @@ If you completed the osTicket webhook setup in Day 26 for SSH alerts, the RDP co
 
 ---
 
-### Step 2: Add the osTicket Webhook Action
+#### Step 2: Add the osTicket Webhook Action
 
 1. Select your **osTicket Webhook connector** from the dropdown.
 
@@ -252,7 +250,7 @@ If you completed the osTicket webhook setup in Day 26 for SSH alerts, the RDP co
 
 ---
 
-### Step 3: Verify Tickets Are Being Created
+#### Step 3: Verify Tickets Are Being Created
 
 1. Trigger or wait for a new RDP brute force event.
 2. Open your **osTicket** interface and confirm a new ticket was generated automatically.
@@ -263,7 +261,7 @@ If you completed the osTicket webhook setup in Day 26 for SSH alerts, the RDP co
 
 ---
 
-## ✅ Summary of Key Takeaways
+### ✅ Summary of Key Takeaways
 
 | Topic | Key Point |
 |-------|-----------|
@@ -278,17 +276,7 @@ If you completed the osTicket webhook setup in Day 26 for SSH alerts, the RDP co
 
 ---
 
-## 🔗 Resources
+### 🔗 Resources
 
-- 📺 [Original Video — MyDFIR Day 27](https://www.youtube.com/watch?v=l9KA6dPdOs8)
-- 📺 [Day 26 — SSH Brute Force Investigation](https://www.youtube.com/watch?v=sXQ1hsAFX7U) *(prerequisite)*
-- 📖 [Microsoft — Windows Security Event IDs](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625)
-- 📖 [Elastic Rule Action Variables](https://www.elastic.co/guide/en/security/current/rules-ui-create.html#rule-action-variables)
-- 🔎 [AbuseIPDB](https://www.abuseipdb.com)
-- 🔎 [GreyNoise Visualizer](https://viz.greynoise.io)
-- 🎫 [osTicket API Ticket Template](https://github.com/osTicket/osTicket/blob/develop/setup/doc/api/tickets.md)
-- 🌐 [MyDFIR SOC Community](https://www.skool.com/mydfir)
-
----
 
 > *Part of the MyDFIR 30-Day SOC Analyst Challenge. This tutorial is based on Day 27 content and is intended for educational purposes.*
